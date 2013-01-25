@@ -1,0 +1,21 @@
+{
+    "name": "irmnet/base",
+    "description": "Base Module for IRM Net in Zend Framework 2", 
+    "keywords": [
+    "framework",
+    "zf2",
+    "auth",
+    "ldap"
+    ],
+    
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework":"2.*"
+    },
+    "autoload":{
+        "psr-0":{
+            "Base":"src"
+        },
+        "classmap": ["Module.php"]
+    }
+}
