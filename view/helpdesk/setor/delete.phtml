@@ -1,0 +1,17 @@
+<p>Are you sure that you want to delete
+    
+    '<?php echo $this->escapeHtml($setor->setor); ?>'?
+</p>
+<?php
+$url = $this->url('setor/delete', array(
+    
+    'id'     => $this->id,
+));
+?>
+<form action="<?php echo $url; ?>" method="post">
+<div>
+    <input type="hidden" name="id" value="<?php echo (int) $setor->idsetor; ?>" />
+    <input type="submit" name="del" class="btn btn-danger" value="Yes" />
+    <input type="submit" name="del" class="btn" value="No" />
+</div>
+</form>

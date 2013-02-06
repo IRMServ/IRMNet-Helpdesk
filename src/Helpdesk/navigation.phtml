@@ -1,0 +1,28 @@
+<ul class='nav'>
+    <?php
+    foreach ($this->container as $page):
+        $sub = $page->getPages();
+
+        if ($page->isActive())
+            $liClasses[] = 'active';
+        if (count($sub) > 0):
+            $liClasses[] = 'dropdown';
+            $aAttribs = ' class="dropdown-toggle" data-toggle="dropdown"';
+        endif;
+        if (count($liClasses) > 0)
+            $liClass = ' class="' . implode(' ', $liClasses) . '"';
+        echo '<li' . $liClass . '><a href="' . $this->url($page->getRoute()) . '"' . $aAttribs . '>' . $page->getlabel() . '</a>';
+        if (count($sub) > 0):
+            echo '<ul class="dropdown-menu">';
+            foreach ($sub as $pages):
+                $active = $pages->isActive() ? ' class="active"' : '';
+                echo '<li' . $active . '><a href="' . $this->url($pages->getRoute(), array('action' => $pages->getAction())) . '">' . $pages->getlabel() . '</a></li>';
+            endforeach;
+            echo '</ul></li>';
+        else:
+            echo '</li>';
+        endif;
+        unset($aAttribs, $liClass, $liClasses);
+    endforeach;
+    ?>
+</ul>

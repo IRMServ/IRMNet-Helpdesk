@@ -1,0 +1,36 @@
+<?php
+$url = $this->url('helpdesk/helpdesk-page');
+?>
+   
+<?php if ($this->pageCount): ?>
+    <div class="pagination">
+        <ul>
+   
+   
+            <?php if (isset($this->previous)): ?>
+               <li> <a  href="<?php echo $url; ?>">Ant</a></li>
+               
+            <?php else: ?>
+                <li class="disabled"><a>Ant</a>    </li>
+            <?php endif; ?>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                  <li>   <a  href="<?php echo $url . '/' . $page; ?>">
+                        <?php echo $page; ?>
+                    </a>&nbsp;</li>
+                <?php else: ?>
+                     <li class="active">
+                        <a><?php echo $page; ?></a>
+                   </li>
+                   
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <?php if (isset($this->next)): ?>
+              <li>  <a   href="<?php echo $url . '/' . $this->next; ?>">Próx</a></li>
+               
+            <?php else: ?>      	
+                 <li class="disabled"><a>Próx</a></a>    
+            <?php endif; ?>
+         </ul>
+    </div>
+<?php endif; ?>

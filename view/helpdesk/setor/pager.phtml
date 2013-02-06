@@ -1,0 +1,36 @@
+<?php
+$url = $this->url('setor/setor-page');
+?>
+   
+<?php if ($this->pageCount): ?>
+    <div class="pagination">
+        <ul>
+   
+   
+            <?php if (isset($this->previous)): ?>
+               <li> <a  href="<?php echo $url; ?>">Prev</a></li>
+               
+            <?php else: ?>
+                <li class="disabled"><a>Prev</a>    </li>
+            <?php endif; ?>
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                  <li>   <a  href="<?php echo $url . '/' . $page; ?>">
+                        <?php echo $page; ?>
+                    </a>&nbsp;</li>
+                <?php else: ?>
+                     <li class="active">
+                        <a><?php echo $page; ?></a>
+                   </li>
+                   
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <?php if (isset($this->next)): ?>
+              <li>  <a   href="<?php echo $url . '/' . $this->next; ?>">Next</a></li>
+               
+            <?php else: ?>      	
+                 <li class="disabled"><a>Next</a></a>    
+            <?php endif; ?>
+         </ul>
+    </div>
+<?php endif; ?>

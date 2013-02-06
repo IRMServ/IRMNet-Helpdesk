@@ -1,0 +1,21 @@
+{
+    "name": "irmnet/helpdesk",
+    "description": "Helpdesk module for IRMServices intranet.", 
+    "keywords": [
+    "framework",
+    "zf2",
+    "doctrine",
+    "intranet"
+    ],
+    
+    "require": {
+        "php": ">=5.3.3",
+        'zendframework/zendframework':'dev-master'
+    },
+    "autoload":{
+        "psr-0":{
+            "Helpdesk":"src"
+        },
+        "classmap": ["Module.php"]
+    }
+}

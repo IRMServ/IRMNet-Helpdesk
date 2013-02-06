@@ -1,0 +1,35 @@
+<?php if ($this->messages): ?>
+    <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>       
+        <?php foreach ($this->messages as $messages): ?>
+            <strong>Success!</strong> <?php echo $messages ?>       
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<table class="table table-striped table-bordered table-hover">
+    <thead>         
+        <tr>
+            <th>Status de chamado</th>
+            <th>Descrição</th>
+            <th>Opções</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->paginator as $setor): ?>
+            <tr>
+                <td><?php echo $setor->status; ?></td>
+                <td><?php echo $setor->descricao; ?></td>
+
+                <td> <a class="btn" href="<?php echo $this->url('status-chamado/store', array('id'=>$setor->idstatus)); ?>"><i class="icon-pencil"></i> Edit</a>
+                 <a class="btn btn-danger" href="<?php echo $this->url('status-chamado/delete', array('id'=>$setor->idstatus)); ?>"><i class="icon-trash icon-white"></i> Delete</a></td>
+            </tr>
+        <?php endforeach; ?>
+    <tfoot>
+        <tr>
+            <td colspan="2"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/status-chamado/pager.phtml') : ""; ?></td>
+            <td>  <a class="btn btn-primary" href="<?php echo $this->url('status-chamado/store', array()); ?>"><i class="icon-plus icon-white"></i> Create</a></td>
+        </tr>
+    </tfoot>
+</tbody>
+
+</table>
