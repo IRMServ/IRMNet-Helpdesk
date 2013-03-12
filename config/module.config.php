@@ -12,15 +12,26 @@ return array(
             'Helpdesk\Controller\PrioridadeChamado' => 'Helpdesk\Controller\PrioridadeChamadoController',
         ),
     ),
+    'translator' => array(
+        'locale' => 'pt_BR',
+        'translation_file_patterns' => array(
+            array(
+                'type' => 'gettext',
+                'base_dir' => __DIR__ . '/../language',
+                'pattern' => '%s.mo',
+            ),
+        ),
+    ),
     'router' => array(
         'routes' => array(
             'helpdesk' => array(
-                'type' => 'Literal',
+                'type' => 'segment',
                 'options' => array(
-                    'route' => '/helpdesk',
+                    'route' => '/helpdesk/:setor',
                     'defaults' => array(
                         'controller' => 'Helpdesk\Controller\Index',
                         'action' => 'index',
+                        'setor' => 0
                     ),
                 ),
                 'may_terminate' => true,
@@ -81,12 +92,11 @@ return array(
                         'type' => 'Literal',
                         'may_terminate' => true,
                         'options' => array(
+                            'route' => '/changeprioridade',
                             'defaults' => array(
-                               
+                                'controller' => 'Helpdesk\Controller\Index',
                                 'action' => 'changeprioridade',
                             ),
-                            'route' => '/changeprioridade',
-                            
                         ),
                     ),
                     'chamado-resposta' => array(
@@ -382,6 +392,7 @@ return array(
             'layout/layout' => __DIR__ . '/../../Base/view/layout/layout.phtml',
             'error/404' => __DIR__ . '/../../Base/view/error/404.phtml',
             'error/index' => __DIR__ . '/../../Base/view/error/index.phtml',
+            'partials/navigation' => __DIR__ . '/../view/partials/navigation.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
@@ -407,10 +418,6 @@ return array(
     'service_manager' => array(
         'factories' => array(
 //            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            "AuthenticationService" => ''
-        ),
-        'services' => array(
-            'Auth' => new \Zend\Authentication\AuthenticationService()
         )
     ),
     'navigation' => array(
@@ -418,14 +425,20 @@ return array(
         'default' => array(
             // And finally, here is where we define our page hierarchy
             'helpdesk' => array(
-                'label' => 'Helpdesk',
+                'label' => 'Solicitações',
                 'route' => 'helpdesk',
-//                'pages' => array(
-//                    'abrir-chamado' => array(
-//                        'label' => 'Abrir chamado',
-//                        'route' => 'helpdesk/open',
-//                    )
-//                )
+                'pages' => array(
+                    'ti' => array(
+                        'label' => 'T.I.',
+                        'route' => 'helpdesk',
+                        'params' => array('setor' => 1)
+                    ),
+                    'projetos-especiais-nav' => array(
+                        'label' => 'Projetos Especiais',
+                        'route' => 'helpdesk',
+                        'params' => array('setor' => 2)
+                    )
+                )
             ),
         ),
     ),
