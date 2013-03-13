@@ -31,10 +31,10 @@ class IndexController extends AbstractActionController {
 
     public function indexAction() {
         $view = new ViewModel;
-
-        $chamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array(), array('idchamado' => 'desc'));
+        $setor = (int) $this->params()->fromRoute('setor', 1);
+        $chamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('setor_destino_fk' => $setor), array('idchamado' => 'desc'));
         $paginator = new Paginator(new ArrayAdapter($chamado));
-        $paginator->setDefaultItemCountPerPage(4);
+        $paginator->setDefaultItemCountPerPage(20);
         $this->layout()->user = $this->getServiceLocator()->get('Auth')->hasIdentity();
         $messages = $this->flashMessenger()->getMessages();
         $page = (int) $this->params()->fromRoute('page', 1);
@@ -44,6 +44,7 @@ class IndexController extends AbstractActionController {
         $view->setVariable('paginator', $paginator);
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
+        $view->setVariable('setor', $setor);
 
         return $view;
     }

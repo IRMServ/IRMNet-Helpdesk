@@ -1,4 +1,6 @@
-<?php if ($this->messages): ?>
+<?php
+use Zend\Debug\Debug;
+if ($this->messages): ?>
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>       
         <?php foreach ($this->messages as $messages): ?>
@@ -18,14 +20,14 @@
             <th>Prioridade</th>
             <th>Status</th>
             <th>Setor</th>
-            <th>Opções</th>
+           
         </tr>
     </thead>
     <tbody>
         <?php foreach ($this->paginator as $chamado): ?>
          <tr>
             <td><?php echo $chamado->getCategoriachamado()->getCategorianome();?></td>
-            <td><a href="<?php echo $this->url('helpdesk/chamado',array('chamado'=>$chamado->getIdchamado()));?>"><?php echo $chamado->getTitulo();?></a></td>
+            <td><a href="<?php echo $this->url('helpdesk/chamado',array('chamado'=>$chamado->getIdchamado(),'setor'=>$this->setor));?>"><?php echo $chamado->getTitulo();?></a></td>
             <td><?php echo $chamado->getDatainicio();?></td>
             <td><?php echo $chamado->getPrevisao();?></td>
            
@@ -33,13 +35,13 @@
             <td><?php echo $chamado->getPrioridade_fk()->getPrioridade();?></td>
             <td><?php echo $chamado->getStatuschamado_fk()->getStatus();?></td>
             <td><?php echo $chamado->getSetor_destino_fk()->getSetor();?></td>
-            <td>Opções</td>
+         
         </tr>
         <?php endforeach; ?>
     <tfoot>
         <tr>
-            <td colspan="8"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/index/pager.phtml') : ""; ?></td>
-            <td>  <a class="btn btn-primary" href="<?php echo $this->url('helpdesk/open', array()); ?>"><i class="icon-plus icon-white"></i> Abrir</a></td>
+            <td colspan="7"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/index/pager.phtml') : ""; ?></td>
+            <td>  <a class="btn btn-primary" href="<?php echo $this->url('helpdesk/open', array('setor'=>$this->setor)); ?>"><i class="icon-plus icon-white"></i> Abrir</a></td>
         </tr>
     </tfoot>
     </tbody>
