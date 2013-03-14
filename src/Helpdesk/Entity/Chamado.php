@@ -98,8 +98,7 @@ class Chamado {
     public $statuschamado_fk;
 
     /**
-     * @Annotation\Type("Zend\Form\Element\Select")
-     * @Annotation\Options({"label":"Setor destinatário *: "})
+     * @Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\Setores", inversedBy="idsetor")
      * @ORM\JoinColumn(name="setor_destino_fk", referencedColumnName="idsetor")
      */
