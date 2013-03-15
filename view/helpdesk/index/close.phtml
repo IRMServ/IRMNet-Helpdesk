@@ -1,0 +1,15 @@
+<p>Como você se sente com o atendimento feito?</p>
+<form method="post">
+    <input type="radio" name="nota" value="10" /><img title="Feliz" src="/img/Smiley-icon.png" /><br/>
+    <input type="radio" name="nota" value="5" /><img title="Indiferente" src="/img/Smiley-disappointed-icon.png" /><br/>
+     <input type="radio" name="nota" value="1" /><img title="Desapontado" src="/img/Smiley-upset-3-icon.png" /><br/>
+    
+    
+   
+    <p>Caso esteja desapontado, por favor escreva o motivo:</p><br/>
+    <textarea name="motivo">
+    </textarea><br/>
+    <input type="submit" class="btn btn-success" value="Fechar"/><br/>
+    <input type="hidden" value="<?php echo $chamado->getIdchamado();?>" name="chamado"/>
+    <input type="hidden" value="<?php echo $this->setor;?>" name="setor"/>
+</form>
