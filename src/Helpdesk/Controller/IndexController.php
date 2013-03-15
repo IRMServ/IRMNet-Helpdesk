@@ -47,6 +47,7 @@ class IndexController extends AbstractActionController {
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
         $view->setVariable('setor', $setor);
+          $view->setVariable('date', new Datetime());
 
         return $view;
     }

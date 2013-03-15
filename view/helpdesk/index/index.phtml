@@ -1,11 +1,15 @@
 <?php
+
 use Zend\Debug\Debug;
-if ($this->messages): ?>
+use \DateTime;
+
+if ($this->messages):
+    ?>
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>       
-        <?php foreach ($this->messages as $messages): ?>
+    <?php foreach ($this->messages as $messages): ?>
             <strong>Success!</strong> <?php echo $messages ?>       
-        <?php endforeach; ?>
+    <?php endforeach; ?>
     </div>
 <?php endif; ?>
 <table class="table table-striped table-bordered table-hover">
@@ -15,35 +19,49 @@ if ($this->messages): ?>
             <th>Título</th>
             <th>Data de Abertura</th>
             <th>Previsão</th>
-            
+
             <th>Conclusão</th>
             <th>Prioridade</th>
             <th>Status</th>
             <th>Setor</th>
-           
+
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($this->paginator as $chamado): ?>
-         <tr>
-            <td><?php echo $chamado->getCategoriachamado()->getCategorianome();?></td>
-            <td><a href="<?php echo $this->url('helpdesk/chamado',array('chamado'=>$chamado->getIdchamado(),'setor'=>$this->setor));?>"><?php echo $chamado->getTitulo();?></a></td>
-            <td><?php echo $chamado->getDatainicio();?></td>
-            <td><?php echo $chamado->getPrevisao();?></td>
-           
-            <td><?php echo $chamado->getDatafim()?></td>
-            <td><?php echo $chamado->getPrioridade_fk()->getPrioridade();?></td>
-            <td><?php echo $chamado->getStatuschamado_fk()->getStatus();?></td>
-            <td><?php echo $chamado->getSetor_destino_fk()->getSetor();?></td>
-         
-        </tr>
-        <?php endforeach; ?>
+<?php foreach ($this->paginator as $chamado): ?>
+            <tr>
+                <td><?php echo $chamado->getCategoriachamado()->getCategorianome(); ?></td>
+                <td><a href="<?php echo $this->url('helpdesk/chamado', array('chamado' => $chamado->getIdchamado(), 'setor' => $this->setor)); ?>"><?php echo $chamado->getTitulo(); ?></a></td>
+                <td><?php echo $chamado->getDatainicio(); ?></td>
+                <td><?php echo $chamado->getPrevisao(); ?></td>
+
+                <td><?php echo $chamado->getDatafim() ?></td>
+                <td><?php echo $chamado->getPrioridade_fk()->getPrioridade(); ?></td>
+                <td><?php
+                    $d = new DateTime(implode('-', array_reverse(explode('/', reset(explode(' ', $chamado->getPrevisao()))))));
+                    
+                    $dif = $date->diff($d);
+                
+                    if($dif->format('%R%a') < 0 && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') {
+                        echo '<span class="label label-important">Importante</span>';
+                    } else {
+                        if ($chamado->getStatuschamado_fk()->getStatus() == 'Fechado') {
+                            echo '<span class="label label-success">Fechado</span>';
+                        } else {
+                            echo '<span class="label label-warning">Aberto</span>';
+                        }
+                    }
+                    ?></td>
+                <td><?php echo $chamado->getSetor_destino_fk()->getSetor(); ?></td>
+
+            </tr>
+                <?php endforeach; ?>
     <tfoot>
         <tr>
             <td colspan="7"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/index/pager.phtml') : ""; ?></td>
-            <td>  <a class="btn btn-primary" href="<?php echo $this->url('helpdesk/open', array('setor'=>$this->setor)); ?>"><i class="icon-plus icon-white"></i> Abrir</a></td>
+            <td>  <a class="btn btn-primary" href="<?php echo $this->url('helpdesk/open', array('setor' => $this->setor)); ?>"><i class="icon-plus icon-white"></i> Abrir</a></td>
         </tr>
     </tfoot>
-    </tbody>
+</tbody>
 
 </table>
