@@ -2,10 +2,10 @@
     $(document).ready(function(){
    
         $("#prioridade-td-chamado").editInPlace({       
-            url: "/helpdesk/changeprioridade",
+            url: "<?php echo $this->url('helpdesk/changeprioridade',array('setor'=>$this->setor))?>",
             field_type: "select",
             select_options: "<?php echo $this->prioridades; ?>", 
-            params:"chamado=<?php echo $this->id ?>&member=<?php echo $this->member ?>&setor=<?php echo $chamado->getSetor_destino_fk()->getSetor() ?>",
+            params:"chamado=<?php echo $this->id ?>&member=<?php echo $this->member ?>&setor=<?php echo $chamado->getSetor_destino_fk()->getSetor() ?>&sector=<?php echo $this->setor?>",
             success:function(data){          
                 var result = JSON.parse(data);
                 if(result.previsao!='undefined')
@@ -23,15 +23,18 @@
 
 </script>
 <table class="table table-striped table-bordered">
-    <?php $pertence = (($this->store['displayname'][0] == $chamado->getAutor()) || ($this->store['memberof'] == $chamado->getSetor_destino_fk()->getSetor())) && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado' ? true : false; ?>
+    <?php 
+   
+  
+    $pertence = (($this->store['displayname'] == $chamado->getAutor()  && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') || ($this->store['departamento'] == $chamado->getSetor_destino_fk()->getSetor()) && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') ? true : false; ?>
     <tbody>
         <tr>
             <th>Inicio</th>
-            <th width="<?php echo $pertence  ? '70%' : '80%'; ?>"><?php echo $idchamado = $chamado->getTitulo(); ?></th>
+            <th width="<?php echo $pertence  ? '70%' : '80%'; ?>"><?php echo  $chamado->getTitulo(); ?></th>
 
             <?php if ($pertence): ?><th width="10%">
-                <a class="btn" title="Responder" href="<?php echo $this->url('helpdesk/chamado-resposta', array('id' => $chamado->getIdchamado())); ?>"><i class="icon-share-alt"></i></a>
-                <a class="btn" title="Fechar" href="<?php echo $this->url('helpdesk/fechar', array('chamado' => $chamado->getIdchamado())); ?>"><i class="icon-remove"></i></a>
+                <a class="btn" title="Responder" href="<?php echo $this->url('helpdesk/chamado-resposta', array('id' => $chamado->getIdchamado(),'setor'=>$this->setor)); ?>"><i class="icon-share-alt"></i></a>
+                <?php if ($this->store['displayname'] == $chamado->getAutor()): ?> <a class="btn" title="Fechar" href="<?php echo $this->url('helpdesk/fechar', array('chamado' => $chamado->getIdchamado(),'setor'=>$this->setor)); ?>"><i class="icon-remove"></i></a>  <?php endif; ?>
             </th><?php endif; ?>
         </tr>
 
