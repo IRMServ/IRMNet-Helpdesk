@@ -92,7 +92,7 @@ class Chamado {
     /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",nullable=true)
      */
     public $motivo;
 
