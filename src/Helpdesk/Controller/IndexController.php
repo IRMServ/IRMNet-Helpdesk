@@ -30,8 +30,8 @@ class IndexController extends AbstractActionController {
     }
 
     public function indexAction() {
-        
-        
+
+
         $view = new ViewModel;
         $setor = (int) $this->params()->fromRoute('setor', 1);
         $chamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('setor_destino_fk' => $setor), array('idchamado' => 'desc'));
@@ -47,7 +47,7 @@ class IndexController extends AbstractActionController {
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
         $view->setVariable('setor', $setor);
-          $view->setVariable('date', new Datetime());
+        $view->setVariable('date', new Datetime());
 
         return $view;
     }
@@ -102,7 +102,7 @@ class IndexController extends AbstractActionController {
         $prioridades = array();
         $form->setAttribute('action', "/helpdesk/{$setor->getIdsetor()}/open");
         $form->setAttribute('enctype', 'multipart/form-data');
-
+        
         foreach ($categoriachamado as $cc) {
             $categorias[$cc->getIdcategoriachamado()] = $cc->getCategorianome();
         }
@@ -127,7 +127,7 @@ class IndexController extends AbstractActionController {
                 $data['prioridade_fk'] = $priority;
                 $data['categoriachamado'] = $categoriachamado;
                 $data['setor_destino_fk'] = $setor;
-                
+
                 $data['setor_origem_fk'] = $author['departamento'];
                 $data['arquivo'] = '';
                 $data['autor'] = $author['displayname'];
@@ -321,10 +321,6 @@ class IndexController extends AbstractActionController {
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
     }
 
-    public function mailAction() {
-        $mail = new Mail($this->getServiceLocator());
-        $mail->addFrom('webmaster@irmserv.com.br')->addTo('igor.carvalho@irmserv.com.br')->setSubject('teste mail service')->setBody('email de teste do mail service');
-        $mail->send();
-    }
+   
 
 }
