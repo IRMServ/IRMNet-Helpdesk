@@ -75,9 +75,9 @@ class Chamado {
     public $autor;
 
     /**
+     * @Annotation\AllowEmpty(true)    
      * @Annotation\Type("Zend\Form\Element\File")
-     * @Annotation\Options({"label":"Imagem: "})
-     * @Annotation\AllowEmpty(true)
+     * @Annotation\Options({"label":"Imagem: "})    
      * @ORM\Column(type="text",nullable=true)
      */
     public $arquivo;
@@ -92,12 +92,27 @@ class Chamado {
     /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
+     * @ORM\Column(type="string")
+     */
+    public $motivo;
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Hidden")
+     * @Annotation\AllowEmpty(true)
+     * @ORM\Column(type="integer",length=2)
+     */
+    public $nota;
+
+    /**
+     * @Annotation\Type("Zend\Form\Element\Hidden")
+     * @Annotation\AllowEmpty(true)
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\StatusChamado", inversedBy="idstatus")
      * @ORM\JoinColumn(name="statuschamado_fk", referencedColumnName="idstatus")
      */
     public $statuschamado_fk;
 
     /**
+     * @Annotation\AllowEmpty(true)
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\Setores", inversedBy="idsetor")
      * @ORM\JoinColumn(name="setor_destino_fk", referencedColumnName="idsetor")
@@ -150,19 +165,18 @@ class Chamado {
         $this->descricao = $descricao;
     }
 
-    public function getDatainicio() {        
+    public function getDatainicio() {
         return $this->datainicio->format("d/m/Y H:i:s");
     }
 
     public function setDatainicio() {
-        
-            $this->datainicio = new DateTime();
-        
+
+        $this->datainicio = new DateTime();
     }
 
     public function getDatafim() {
-       
-        return  $this->datafim instanceof DateTime ? $this->datafim->format("d/m/Y H:i:s"):'';
+
+        return $this->datafim instanceof DateTime ? $this->datafim->format("d/m/Y H:i:s") : '';
     }
 
     public function setDatafim() {
@@ -238,18 +252,19 @@ class Chamado {
         $this->setStatuschamado_fk($data['statuschamado_fk']);
         $this->setTitulo($data['titulo']);
         $this->setArquivo($data['arquivo']);
+        $this->setMotivo($data['motivo']);
+        $this->setNota($data['nota']);
     }
 
     public function getPrevisao() {
-       
+
         return $this->previsao->format("d/m/Y H:i:s");
     }
 
     public function setPrevisao() {
-       
-            $data = new DateTime();
-            $this->previsao = $data->add(new DateInterval("P{$this->prioridade_fk->getDias()}D"));
-       
+
+        $data = new DateTime();
+        $this->previsao = $data->add(new DateInterval("P{$this->prioridade_fk->getDias()}D"));
     }
 
     public function getPrioridade_fk() {
@@ -258,6 +273,22 @@ class Chamado {
 
     public function setPrioridade_fk($prioridade_fk) {
         $this->prioridade_fk = $prioridade_fk;
+    }
+
+    public function getMotivo() {
+        return $this->motivo;
+    }
+
+    public function setMotivo($motivo) {
+        $this->motivo = $motivo;
+    }
+
+    public function getNota() {
+        return $this->nota;
+    }
+
+    public function setNota($nota) {
+        $this->nota = $nota;
     }
 
 }

@@ -112,6 +112,7 @@ class IndexController extends AbstractActionController {
 
         $form->get('categoriachamado')->setEmptyOption('Escolha uma Categoria')->setValueOptions($categorias);
         $form->get('prioridade_fk')->setEmptyOption('Escolha a prioridade')->setValueOptions($prioridades);
+        $form->get('setor_destino_fk')->setValue($setor->getIdsetor());
         if ($this->getRequest()->isPost()) {
 
             $form->setData($this->getRequest()->getPost());
@@ -180,9 +181,7 @@ class IndexController extends AbstractActionController {
                 $this->getEntityManager()->flush();
                 $this->flashMessenger()->addMessage('As informações foram registradas.');
                 return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
-            } else {
-                Debug::dump($form->getMessages());
-            }
+            } 
         }
 
 
