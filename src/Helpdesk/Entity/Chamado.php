@@ -99,7 +99,7 @@ class Chamado {
     /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
-     * @ORM\Column(type="integer",length=2)
+     * @ORM\Column(type="integer",length=2,nullable=true)
      */
     public $nota;
 
