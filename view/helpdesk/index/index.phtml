@@ -58,7 +58,7 @@ if ($this->messages):
                 <?php endforeach; ?>
     <tfoot>
         <tr>
-            <td colspan="7"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/index/pager.phtml') : ""; ?></td>
+            <td colspan="7"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/index/pager.phtml',array('setor'=>$setor)) : ""; ?></td>
             <td>  <a class="btn btn-primary" href="<?php echo $this->url('helpdesk/open', array('setor' => $this->setor)); ?>"><i class="icon-plus icon-white"></i> Abrir</a></td>
         </tr>
     </tfoot>
