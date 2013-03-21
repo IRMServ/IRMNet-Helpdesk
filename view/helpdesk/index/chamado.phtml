@@ -24,9 +24,8 @@
 </script>
 <table class="table table-striped table-bordered">
     <?php 
-   
   
-    $pertence = (($this->store['displayname'] == $chamado->getAutor()  && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') || ($this->store['departamento'] == $chamado->getSetor_destino_fk()->getSetor()) && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') ? true : false; ?>
+    $pertence = (($this->store['displayname'] == $chamado->getAutor()  && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') || ($this->store['departamento'] == strtoupper($chamado->getSetor_destino_fk()->getSetor())) && $chamado->getStatuschamado_fk()->getStatus() != 'Fechado') ? true : false; ?>
     <tbody>
         <tr>
             <th>Inicio</th>
@@ -49,10 +48,10 @@
             <td id="previsao"><?php echo $chamado->getPrevisao(); ?> </td>
         </tr>
         <tr>
-            <th>Setor responsável</th>
+            <th>Setor solicitante</th>
         </tr>
         <tr>
-            <td><?php echo $chamado->getSetor_destino_fk()->getSetor(); ?> </td>
+            <td><?php echo $chamado->getSetor_origem_fk(); ?> </td>
         </tr>
         <tr>
             <th>Prioridade</th>
