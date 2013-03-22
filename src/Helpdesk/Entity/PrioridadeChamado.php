@@ -59,7 +59,7 @@ class PrioridadeChamado {
     
 
     public function populate(array $data) {
-        //$this->setDescricao($data['descricao']);
+        $this->setDescricao($data['descricao']);
         $this->setIdprioridade($data['idprioridade']);
         $this->setDias($data['dias']);
         $this->setPrioridade($data['prioridade']);
