@@ -179,6 +179,12 @@ class IndexController extends AbstractActionController {
                 $chamado->populate($data);
                 $this->getEntityManager()->persist($chamado);
                 $this->getEntityManager()->flush();
+                $mail->addFrom('webmaster@irmserv.com.br')
+                        ->addCc($author['email'])
+                        ->addTo($setor->getEmail())
+                        ->setSubject('Chamado aberto no Setor de ' . $setor->getSetor())
+                        ->setBody('Mais um chamado foi aberto por ' . $author['displayname']);
+                $mail->send();
                 $this->flashMessenger()->addMessage('As informações foram registradas.');
                 return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
             } 

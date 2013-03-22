@@ -32,10 +32,19 @@ class Setores {
      * @ORM\Column(type="string")
      */
     public $setor;
+    /**
+     * @Annotation\Type("Zend\Form\Element\Text")
+     * @Annotation\Required({"required":"true" })
+     * @Annotation\Filter({"name":"StripTags"})
+     * @Annotation\Validator({"name":"StringLength", "options":{"min":"1"}})
+     * @Annotation\Options({"label":"E-mail : "})
+     * @ORM\Column(type="string")
+     */
+    public $email;
 
     /**
      * @Annotation\Type("Zend\Form\Element\Textarea")
-     * @Annotation\Options({"label":"Descrilção: "})
+     * @Annotation\Options({"label":"Descrição: "})
      * @Annotation\AllowEmpty(true)
      * @ORM\Column(type="text")
      */
@@ -84,6 +93,7 @@ class Setores {
         $this->setDescricao($data['descricao']);
         $this->setIdsetor($data['idsetor']);
         $this->setSetor($data['setor']);
+        $this->setEmail($data['email']);
     }
 
     public function toArray() {
@@ -96,5 +106,13 @@ class Setores {
         }
         return $data;
     }
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
 
 }
