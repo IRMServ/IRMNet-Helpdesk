@@ -420,26 +420,26 @@ return array(
 //            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         )
     ),
-    'navigation' => array(
-        // The DefaultNavigationFactory we configured in (1) uses 'default' as the sitemap key
-        'default' => array(
-            // And finally, here is where we define our page hierarchy
-            'helpdesk' => array(
-                'label' => 'Solicitações',
-                'route' => 'helpdesk',
-                'pages' => array(
-                    'ti' => array(
-                        'label' => 'T.I.',
-                        'route' => 'helpdesk',
-                        'params' => array('setor' => 1)
-                    ),
-                    'projetos-especiais-nav' => array(
-                        'label' => 'Projetos Especiais',
-                        'route' => 'helpdesk',
-                        'params' => array('setor' => 2)
-                    )
-                )
-            ),
-        ),
-    ),
+//    'navigation' => array(
+//        // The DefaultNavigationFactory we configured in (1) uses 'default' as the sitemap key
+//        'default' => array(
+//            // And finally, here is where we define our page hierarchy
+//            'helpdesk' => array(
+//                'label' => 'Solicitações',
+//                'route' => 'helpdesk',
+//                'pages' => array(
+//                    'ti' => array(
+//                        'label' => 'T.I.',
+//                        'route' => 'helpdesk',
+//                        'params' => array('setor' => 1)
+//                    ),
+//                    'projetos-especiais-nav' => array(
+//                        'label' => 'Projetos Especiais',
+//                        'route' => 'helpdesk',
+//                        'params' => array('setor' => 2)
+//                    )
+//                )
+//            ),
+//        ),
+//    ),
 );
