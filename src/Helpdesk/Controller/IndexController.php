@@ -15,6 +15,9 @@ use Zend\Filter\File\Rename;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Debug\Debug;
+use Zend\Mime\Part as MimeType;
+use Zend\Mime\Mime;
+use Zend\Mime\Message;
 use \DateTime;
 use MailService\Service\MailService as Mail;
 
