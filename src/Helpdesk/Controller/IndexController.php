@@ -95,23 +95,21 @@ class IndexController extends AbstractActionController {
 
         $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
         $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findAll();
-        $priority = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findAll();
+        $prioridade = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findBy(array('prioridade'=>'Normal'));
         $chamado->setSetor_destino_fk($setor);
         $categorias = array();
 
-        $prioridades = array();
+       
         $form->setAttribute('action', "/helpdesk/{$setor->getIdsetor()}/open");
         $form->setAttribute('enctype', 'multipart/form-data');
 
         foreach ($categoriachamado as $cc) {
             $categorias[$cc->getIdcategoriachamado()] = $cc->getCategorianome();
         }
-        foreach ($priority as $p) {
-            $prioridades[$p->getIdprioridade()] = $p->getPrioridade();
-        }
+        
 
         $form->get('categoriachamado')->setEmptyOption('Escolha uma Categoria')->setValueOptions($categorias);
-        $form->get('prioridade_fk')->setEmptyOption('Escolha a prioridade')->setValueOptions($prioridades);
+         $form->get('prioridade_fk')->setValue($prioridade[0]->getIdprioridade());
         $form->get('setor_destino_fk')->setValue($setor->getIdsetor());
         if ($this->getRequest()->isPost()) {
 

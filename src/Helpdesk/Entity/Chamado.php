@@ -119,9 +119,8 @@ class Chamado {
      */
     public $setor_destino_fk;
 
-    /**
-     * @Annotation\Type("Zend\Form\Element\Select")
-     * @Annotation\Options({"label":"Prioridade *: "})
+     /**
+     * @Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\PrioridadeChamado", inversedBy="idprioridade")
      * @ORM\JoinColumn(name="prioridade_fk", referencedColumnName="idprioridade")
      */
