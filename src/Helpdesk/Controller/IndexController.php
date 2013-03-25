@@ -102,7 +102,7 @@ class IndexController extends AbstractActionController {
         $prioridades = array();
         $form->setAttribute('action', "/helpdesk/{$setor->getIdsetor()}/open");
         $form->setAttribute('enctype', 'multipart/form-data');
-        
+
         foreach ($categoriachamado as $cc) {
             $categorias[$cc->getIdcategoriachamado()] = $cc->getCategorianome();
         }
@@ -179,6 +179,8 @@ class IndexController extends AbstractActionController {
                 $chamado->populate($data);
                 $this->getEntityManager()->persist($chamado);
                 $this->getEntityManager()->flush();
+                $mail = new Mail($this->getServiceLocator());
+
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addCc($author['email'])
                         ->addTo($setor->getEmail())
@@ -187,7 +189,7 @@ class IndexController extends AbstractActionController {
                 $mail->send();
                 $this->flashMessenger()->addMessage('As informações foram registradas.');
                 return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
-            } 
+            }
         }
 
 
@@ -325,7 +327,5 @@ class IndexController extends AbstractActionController {
         }
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
     }
-
-   
 
 }
