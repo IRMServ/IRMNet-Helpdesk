@@ -179,13 +179,21 @@ class IndexController extends AbstractActionController {
                 $chamado->populate($data);
                 $this->getEntityManager()->persist($chamado);
                 $this->getEntityManager()->flush();
-                $mail = new Mail($this->getServiceLocator());
+               $renderer = $this->getServiceLocator()->get('ViewRenderer');
 
+                $content = $renderer->render('helpdesk/index/email-abertura-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+                $mimehtml = new MimeType($content);
+                $mimehtml->type = Mime::TYPE_HTML;
+                $message = new Message();
+                $message->addPart($mimehtml);
+
+                $mail = new Mail($this->getServiceLocator());
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addCc($author['email'])
                         ->addTo($setor->getEmail())
-                        ->setSubject('Chamado aberto no Setor de ' . $setor->getSetor())
-                        ->setBody('Mais um chamado foi aberto por ' . $author['displayname']);
+                        ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
+                        ->setBody($message);
+
                 $mail->send();
                 $this->flashMessenger()->addMessage('As informações foram registradas.');
                 return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
