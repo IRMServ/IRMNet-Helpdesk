@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Chamado aberto</title>
+    </head>
+    <body>
+        <h1>Fechamento de chamado</h1>
+        <?php echo $this->sujeito?>,<br/>
+        <p>O seu chamado ("<?php echo $this->titulo?>") foi fechado, mas gostaríamos de sua opinião. Por favor acesse o link abaixo e dê sua nota.<br/><br/>
+        </p>
+        
+        <a href="http://intranet.local<?php echo $this->url('helpdesk/chamado/avaliar-chamado',array('setor'=>$this->setor,'chamado'=>$this->chamado))?>"><?php echo $this->titulo?></a><br/><br/></p>
+        <hr/>
+        Departamento de T.I.<br/><br/>
+        &copy; <?php echo date('Y');?> IRM Services. Todos os direitos reservados.
+    </body>
+</html>

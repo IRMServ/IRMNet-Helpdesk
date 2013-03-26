@@ -73,6 +73,18 @@ return array(
                                 'chamado' => 0
                             ),
                         ),
+                        'child_routes' => array(
+                            'avaliar-chamado' => array(
+                                'type' => 'Literal',
+                                'may_terminate' => true,
+                                'options' => array(
+                                    'route' => '/avaliar',
+                                    'defaults' => array(
+                                        'action' => 'avaliar',
+                                    ),
+                                ),
+                            ),
+                        ),
                     ),
                     'fechar' => array(
                         'type' => 'Segment',
