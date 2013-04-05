@@ -294,7 +294,7 @@ class IndexController extends AbstractActionController {
                 $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $resposta->getResposta()));
                 $mimehtml = new MimeType($content);
                 $mimehtml->type = Mime::TYPE_HTML;
-
+  $mimehtml->charset = 'UTF-8';
                 $message = new Message();
                 $message->addPart($mimehtml);
 
@@ -306,7 +306,7 @@ class IndexController extends AbstractActionController {
                         ->setBody($message);
 
                 $mail->send();
-                $this->redirect()->toRoute('helpdesk/chamado', array('chamado' => $id, 'setor' => $setor->getIdsetor()));
+                $this->redirect()->toRoute('ti/helpdesk/chamado');
             }
         }
         return array('form' => $form, 'user' => $store);

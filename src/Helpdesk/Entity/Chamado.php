@@ -88,22 +88,22 @@ class Chamado {
      * @ORM\Column(type="string")
      */
     public $setor_origem_fk;
-
     /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      */
     public $motivo;
-
     /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
-     * @ORM\Column(type="integer",length=2,nullable=true)
+     * @ORM\Column(type="integer",length=2)
      */
     public $nota;
+   
 
-    /**
+    
+        /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @Annotation\AllowEmpty(true)
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\StatusChamado", inversedBy="idstatus")
@@ -119,7 +119,7 @@ class Chamado {
      */
     public $setor_destino_fk;
 
-     /**
+    /**
      * @Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\PrioridadeChamado", inversedBy="idprioridade")
      * @ORM\JoinColumn(name="prioridade_fk", referencedColumnName="idprioridade")
@@ -164,18 +164,19 @@ class Chamado {
         $this->descricao = $descricao;
     }
 
-    public function getDatainicio() {
+    public function getDatainicio() {        
         return $this->datainicio->format("d/m/Y H:i:s");
     }
 
     public function setDatainicio() {
-
-        $this->datainicio = new DateTime();
+        
+            $this->datainicio = new DateTime();
+        
     }
 
     public function getDatafim() {
-
-        return $this->datafim instanceof DateTime ? $this->datafim->format("d/m/Y H:i:s") : '';
+       
+        return  $this->datafim instanceof DateTime ? $this->datafim->format("d/m/Y H:i:s"):'';
     }
 
     public function setDatafim() {
@@ -256,14 +257,15 @@ class Chamado {
     }
 
     public function getPrevisao() {
-
+       
         return $this->previsao->format("d/m/Y H:i:s");
     }
 
     public function setPrevisao() {
-
-        $data = new DateTime();
-        $this->previsao = $data->add(new DateInterval("P{$this->prioridade_fk->getDias()}D"));
+       
+            $data = new DateTime();
+            $this->previsao = $data->add(new DateInterval("P{$this->prioridade_fk->getDias()}D"));
+       
     }
 
     public function getPrioridade_fk() {
@@ -273,21 +275,19 @@ class Chamado {
     public function setPrioridade_fk($prioridade_fk) {
         $this->prioridade_fk = $prioridade_fk;
     }
-
-    public function getMotivo() {
+    
+     public function getMotivo() {
         return $this->motivo;
     }
 
     public function setMotivo($motivo) {
         $this->motivo = $motivo;
     }
-
-    public function getNota() {
+ public function getNota() {
         return $this->nota;
     }
 
     public function setNota($nota) {
         $this->nota = $nota;
     }
-
 }

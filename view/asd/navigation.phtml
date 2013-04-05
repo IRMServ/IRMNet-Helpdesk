@@ -1,5 +1,9 @@
 <ul class='nav'>
     <?php
+    $liClass = '';
+     $aAttribs = '';
+    $liClasses = array();
+  
     foreach ($this->container as $page):
         $sub = $page->getPages();
 

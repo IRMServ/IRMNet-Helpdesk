@@ -392,6 +392,16 @@ return array(
                     ),
                 )
             ),
+            'mail' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/mail',
+                    'defaults' => array(
+                        'controller' => 'Helpdesk\Controller\Index',
+                        'action' => 'mail',
+                    ),
+                ),
+            )
         ),
     ),
     'view_manager' => array(
@@ -429,7 +439,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-//            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
+            'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
         )
     ),
 //    'navigation' => array(

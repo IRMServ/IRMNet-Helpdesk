@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Chamado aberto</title>
+    </head>
+    <body>
+        <h1>Chamado aberto</h1>
+        <?php echo $this->sujeito?>,<br/>
+        <p>Você acaba de abrir o chamado "<?php echo $this->titulo?>", com o seguinte texto:<br/><br/>
+        <?php echo $this->conteudo?>
+        </p>
+        Para acomapanhar o seu chamado clique no link abaixo:<br/>
+        <a href="http://intranet/<?php echo $this->url('helpdesk-chamado',array('setor'=>$this->setor,'chamado'=>$this->chamado))?>"><?php echo $this->titulo?></a>
+    </body>
+</html>

@@ -33,7 +33,7 @@
 
             <?php if ($pertence): ?><th width="10%">
                 <a class="btn" title="Responder" href="<?php echo $this->url('helpdesk/chamado-resposta', array('id' => $chamado->getIdchamado(),'setor'=>$this->setor)); ?>"><i class="icon-share-alt"></i></a>
-                <?php if ($this->store['displayname'] == $chamado->getAutor()): ?> <a class="btn" title="Fechar" href="<?php echo $this->url('helpdesk/fechar', array('chamado' => $chamado->getIdchamado(),'setor'=>$this->setor)); ?>"><i class="icon-remove"></i></a>  <?php endif; ?>
+                <?php if ($pertence): ?> <form action="<?php echo $this->url('helpdesk/fechar', array('chamado' => $chamado->getIdchamado(),'setor'=>$this->setor)); ?>" method="post"><button type="submit" class="btn" title="Fechar" href="#"><i class="icon-remove"></i></button><input type="hidden" name="chamado" value="<?php echo $chamado->getIdchamado()?>"><input type="hidden" name="setor" value="<?php echo $setor;?>"></form>  <?php endif; ?>
             </th><?php endif; ?>
         </tr>
 
