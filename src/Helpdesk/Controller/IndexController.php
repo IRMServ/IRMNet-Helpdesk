@@ -188,9 +188,7 @@ class IndexController extends AbstractActionController {
 
                 $content = $renderer->render('helpdesk/index/email-abertura-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
                 $mimehtml = new MimeType($content);
-                $mimehtml->type = Mime::TYPE_HTML;
 
-                $mimehtml->charset = 'UTF-8';
                 $message = new Message();
 
                 $message->addPart($mimehtml);
@@ -201,6 +199,10 @@ class IndexController extends AbstractActionController {
                         ->addTo($setor->getEmail())
                         ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                         ->setBody($message);
+                $headers = $mail->getHeaders();
+                $headers->removeHeader('Content-Type');
+                $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+                $mail->setHeaders($headers);
 
                 $mail->send();
                 $this->flashMessenger()->addMessage('As informações foram registradas.');
@@ -293,8 +295,7 @@ class IndexController extends AbstractActionController {
                 $renderer = $this->getServiceLocator()->get('ViewRenderer');
                 $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $resposta->getResposta()));
                 $mimehtml = new MimeType($content);
-                $mimehtml->type = Mime::TYPE_HTML;
-  $mimehtml->charset = 'UTF-8';
+
                 $message = new Message();
                 $message->addPart($mimehtml);
 
@@ -304,6 +305,10 @@ class IndexController extends AbstractActionController {
                         ->addTo($setor->getEmail())
                         ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
                         ->setBody($message);
+                $headers = $mail->getHeaders();
+                $headers->removeHeader('Content-Type');
+                $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+                $mail->setHeaders($headers);
 
                 $mail->send();
                 $this->redirect()->toRoute('ti/helpdesk/chamado');
@@ -361,7 +366,7 @@ class IndexController extends AbstractActionController {
             $renderer = $this->getServiceLocator()->get('ViewRenderer');
             $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo()));
             $mimehtml = new MimeType($content);
-            $mimehtml->type = Mime::TYPE_HTML;
+
 
             $message = new Message();
             $message->addPart($mimehtml);
@@ -372,6 +377,10 @@ class IndexController extends AbstractActionController {
                     ->addTo($setor->getEmail())
                     ->setSubject("[Chamado fechado] {$chamado->getTitulo()}")
                     ->setBody($message);
+            $headers = $mail->getHeaders();
+            $headers->removeHeader('Content-Type');
+            $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+            $mail->setHeaders($headers);
 
             $mail->send();
 
