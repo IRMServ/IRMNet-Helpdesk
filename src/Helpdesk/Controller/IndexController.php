@@ -197,7 +197,7 @@ class IndexController extends AbstractActionController {
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addCc($author['email'])
                         ->addTo($setor->getEmail())
-                        ->setSubject("[chamado Aberto - T.I.] {$chamado->getTitulo()}")
+                        ->setSubject("[chamado Aberto - {$setor->getSetor()}] {$chamado->getTitulo()}")
                         ->setBody($message);
                 $headers = $mail->getHeaders();
                 $headers->removeHeader('Content-Type');
@@ -303,7 +303,7 @@ class IndexController extends AbstractActionController {
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addCc($store['email'])
                         ->addTo($setor->getEmail())
-                        ->setSubject("[Resposta Chamado - T.I.] {$chamado->getTitulo()}")
+                        ->setSubject("[Resposta Chamado - {$setor->getSetor()}] {$chamado->getTitulo()}")
                         ->setBody($message);
                 $headers = $mail->getHeaders();
                 $headers->removeHeader('Content-Type');
@@ -375,7 +375,7 @@ class IndexController extends AbstractActionController {
             $mail->addFrom('webmaster@irmserv.com.br')
                     ->addCc($store['email'])
                     ->addTo($setor->getEmail())
-                    ->setSubject("[Chamado Fechado - T.I.] {$chamado->getTitulo()}")
+                    ->setSubject("[Chamado Fechado - {$setor->getSetor()}] {$chamado->getTitulo()}")
                     ->setBody($message);
             $headers = $mail->getHeaders();
             $headers->removeHeader('Content-Type');
