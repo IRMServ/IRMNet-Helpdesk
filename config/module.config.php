@@ -440,8 +440,7 @@ return array(
     'service_manager' => array(
         'factories' => array(
             'Navigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-        ),
-        'SetoresPair' => function($sm) {
+            'SetoresPair' => function($sm) {
                 $em = $sm->get('doctrine.entitymanager.orm_default');
                 $s = $em->getRepository('Helpdesk\Entity\Setores')->findAll();
                 $farray = array();
@@ -451,6 +450,7 @@ return array(
                 }
                 return $farray;
             },
+        ),        
     ),
 //    'navigation' => array(
 //        // The DefaultNavigationFactory we configured in (1) uses 'default' as the sitemap key
