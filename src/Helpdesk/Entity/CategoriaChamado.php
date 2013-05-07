@@ -28,7 +28,7 @@ class CategoriaChamado
      * @Annotation\Required({"required":"true" })
      * @Annotation\Filter({"name":"StripTags"})
      * @Annotation\Validator({"name":"StringLength", "options":{"min":"1"}})
-     * @Annotation\Options({"label":"Status name : "})
+     * @Annotation\Options({"label":"Category name : "})
      * @ORM\Column(type="string")
      */
     public $categorianome;
@@ -42,11 +42,7 @@ class CategoriaChamado
     public $descricao;
     
     /**
-     * @Annotation\Type("Zend\Form\Element\Select")
-     * @annotation\Required({"required":"true" })
-     * @Annotation\Filter({"name":"StripTags"})
-     * @Annotation\Validator({"name":"NotEmpty","type":"integer"})
-     * @Annotation\Options({"label":"Sector: "})
+     *@Annotation\Type("Zend\Form\Element\Hidden")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\Setores", inversedBy="idsetor")
      * @ORM\JoinColumn(name="setor_fk", referencedColumnName="idsetor")
      */

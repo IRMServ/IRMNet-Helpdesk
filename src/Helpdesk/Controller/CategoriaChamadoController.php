@@ -8,7 +8,7 @@ use Helpdesk\Entity\CategoriaChamado;
 use Zend\View\Model\ViewModel;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
-
+use Zend\Debug\Debug;
 class CategoriaChamadoController extends AbstractActionController {
 
     protected $em;
@@ -23,9 +23,9 @@ class CategoriaChamadoController extends AbstractActionController {
     public function indexAction() {
 
         $view = new ViewModel();
-
+        $setor = $this->params()->fromRoute('setor');
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $all = $entityManager->getRepository('Helpdesk\Entity\CategoriaChamado')->findAll();
+        $all = $entityManager->getRepository('Helpdesk\Entity\CategoriaChamado')->findBy(array('setor_fk' => $setor));
 
         $paginator = new Paginator(new ArrayAdapter($all));
         $paginator->setDefaultItemCountPerPage(4);
@@ -38,25 +38,23 @@ class CategoriaChamadoController extends AbstractActionController {
         $view->setVariable('paginator', $paginator);
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
+        $view->setVariable('setor', $setor);
 
         return $view;
     }
 
     public function storeAction() {
         $setores = new CategoriaChamado();
+        $setor = $this->params()->fromRoute('setor');
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $setoreent = $entityManager->getRepository('Helpdesk\Entity\Setores')->findAll();
-        $seterent = array();
-
-
-        foreach ($setoreent as $sector) {
-            $seterent[$sector->getIdsetor()] = $sector->getSetor();
-        }
+        $setoreent = $entityManager->getRepository('Helpdesk\Entity\Setores')->find($setor);
+  
         $id = $this->params()->fromRoute('id');
         $anf = new AnnotationBuilder($this->getEntityManager());
         $form = $anf->createForm($setores);
-        $form->get('setor_fk')->setEmptyOption('Choice a Sector')->setValueOptions($seterent);
-        $form->setAttribute('action', '/categoria-chamado/store');
+        $form->get('setor_fk')->setValue($setoreent->getIdsetor());
+
+
 
         if ($id) {
             $setor = $this->getEntityManager()->find('Helpdesk\Entity\CategoriaChamado', $id);
@@ -72,21 +70,21 @@ class CategoriaChamadoController extends AbstractActionController {
 
 
                 if (!$data['idcategoriachamado']) {
-                    $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $data['setor_fk']);
-                    $data['setor_fk'] = $setor;
+
+                    $data['setor_fk'] = $setoreent;
                     $setores->populate($data);
                     $this->getEntityManager()->persist($setores);
                     $this->getEntityManager()->flush();
                 } else {
 
                     $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $data['setor_fk']);
-                    $data['setor_fk'] = $setor;
+                    $data['setor_fk'] = $setoreent;
                     $setores->populate($data);
                     $this->getEntityManager()->merge($setores);
                     $this->getEntityManager()->flush();
                 }
                 $this->flashMessenger()->addMessage('The Data are registred.');
-                $this->redirect()->toRoute('categoria-chamado');
+                $this->redirect()->toRoute('categoria-chamado',array('setor'=>$setor));
             }
         }
 
