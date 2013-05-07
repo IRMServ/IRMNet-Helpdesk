@@ -144,10 +144,12 @@ return array(
                         'options' => array(
                             'route' => '/store[/:id]',
                             'constraints' => array(
-                                'id' => '[0-9]+'
+                                'id' => '[0-9]+',
+                               
                             ),
                             'defaults' => array(
                                 'action' => 'store',
+                               
                             ),
                         ),
                     ),
@@ -340,13 +342,18 @@ return array(
                 )
             ),
             'categoria-chamado' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/categoria-chamado',
+                    'route' => '/categoria-chamado/:setor',
+                    'constraints' => array(
+                                'setor' => '[0-9]+'
+                            ),
                     'defaults' => array(
                         'controller' => 'Helpdesk\Controller\categoriaChamado',
                         'action' => 'index',
+                        'setor' => 0,
                     ),
+                            
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
@@ -356,7 +363,7 @@ return array(
                         'options' => array(
                             'route' => '/store[/:id]',
                             'constraints' => array(
-                                'id' => '[0-9]+'
+                                'id' => '[0-9]+',
                             ),
                             'defaults' => array(
                                 'action' => 'store',
@@ -444,34 +451,11 @@ return array(
                 $em = $sm->get('doctrine.entitymanager.orm_default');
                 $s = $em->getRepository('Helpdesk\Entity\Setores')->findAll();
                 $farray = array();
-                foreach($s as $f)
-                {
+                foreach ($s as $f) {
                     $farray[$f->getIdsetor()] = $f->getSetor();
                 }
                 return $farray;
             },
-        ),        
+        )
     ),
-//    'navigation' => array(
-//        // The DefaultNavigationFactory we configured in (1) uses 'default' as the sitemap key
-//        'default' => array(
-//            // And finally, here is where we define our page hierarchy
-//            'helpdesk' => array(
-//                'label' => 'Solicitações',
-//                'route' => 'helpdesk',
-//                'pages' => array(
-//                    'ti' => array(
-//                        'label' => 'T.I.',
-//                        'route' => 'helpdesk',
-//                        'params' => array('setor' => 1)
-//                    ),
-//                    'projetos-especiais-nav' => array(
-//                        'label' => 'Projetos Especiais',
-//                        'route' => 'helpdesk',
-//                        'params' => array('setor' => 2)
-//                    )
-//                )
-//            ),
-//        ),
-//    ),
 );
