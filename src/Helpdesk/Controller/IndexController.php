@@ -94,126 +94,136 @@ class IndexController extends AbstractActionController {
 
     public function storeAction() {
         $this->layout()->user = $this->getServiceLocator()->get('Auth')->hasIdentity();
-        $anf = new AnnotationBuilder($this->getEntityManager());
-        $chamado = new Chamado();
+        $user = $this->getServiceLocator()->get('Auth')->getStorage()->read();
+        $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('autor' => $user['displayname'], 'nota' => 0));
+        
         $setor = $this->params()->fromRoute('setor');
-        $form = $anf->createForm($chamado);
+        if (count($chamados_abertos) == 0) {
+            $anf = new AnnotationBuilder($this->getEntityManager());
+            $chamado = new Chamado();
+            $setor = $this->params()->fromRoute('setor');
+            $form = $anf->createForm($chamado);
 
-        $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
-        $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findAll();
+            $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
+            $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findAll();
 
-        $prioridade = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findBy(array('prioridade' => 'Normal'));
-        $chamado->setSetor_destino_fk($setor);
-        $categorias = array();
-
-
-        $form->setAttribute('action', "/helpdesk/{$setor->getIdsetor()}/open");
-        $form->setAttribute('enctype', 'multipart/form-data');
-
-        foreach ($categoriachamado as $cc) {
-            $categorias[$cc->getIdcategoriachamado()] = $cc->getCategorianome();
-        }
-
-        $author = $this->getServiceLocator()->get('Auth')->getStorage()->read();
-        $form->get('categoriachamado')->setEmptyOption('Escolha uma Categoria')->setValueOptions($categorias);
-        $form->get('prioridade_fk')->setValue($prioridade[0]->getIdprioridade());
-        if ($this->getRequest()->isPost()) {
-
-            $form->setData($this->getRequest()->getPost());
-            if ($form->isValid()) {
-
-                $data = $form->getData();
-                $author = $this->getServiceLocator()->get('Auth')->getStorage()->read();
-                $priority = $this->getEntityManager()->find('Helpdesk\Entity\PrioridadeChamado', $data['prioridade_fk']);
-                $categoriachamado = $this->getEntityManager()->find('Helpdesk\Entity\CategoriaChamado', $data['categoriachamado']);
-                $statuschamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\StatusChamado')->findBy(array('status' => 'Aberto'));
+            $prioridade = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findBy(array('prioridade' => 'Normal'));
+            $chamado->setSetor_destino_fk($setor);
+            $categorias = array();
 
 
-                $data['prioridade_fk'] = $priority;
-                $data['categoriachamado'] = $categoriachamado;
-                $data['setor_destino_fk'] = $setor;
+            $form->setAttribute('action', "/helpdesk/{$setor->getIdsetor()}/open");
+            $form->setAttribute('enctype', 'multipart/form-data');
 
-                $data['setor_origem_fk'] = $author['departamento'];
-                $data['arquivo'] = '';
-                $data['autor'] = $author['displayname'];
-                $data['statuschamado_fk'] = $statuschamado[0];
-                $chamado->setDatainicio();
+            foreach ($categoriachamado as $cc) {
+                $categorias[$cc->getIdcategoriachamado()] = $cc->getCategorianome();
+            }
 
-                $File = $this->params()->fromFiles('arquivo');
+            $author = $this->getServiceLocator()->get('Auth')->getStorage()->read();
+            $form->get('categoriachamado')->setEmptyOption('Escolha uma Categoria')->setValueOptions($categorias);
+            $form->get('prioridade_fk')->setValue($prioridade[0]->getIdprioridade());
+            if ($this->getRequest()->isPost()) {
 
-                if ($File['size'] > 0) {
-                    $data['arquivo'] = $File['name'];
+                $form->setData($this->getRequest()->getPost());
+                if ($form->isValid()) {
+
+                    $data = $form->getData();
+                    $author = $this->getServiceLocator()->get('Auth')->getStorage()->read();
+                    $priority = $this->getEntityManager()->find('Helpdesk\Entity\PrioridadeChamado', $data['prioridade_fk']);
+                    $categoriachamado = $this->getEntityManager()->find('Helpdesk\Entity\CategoriaChamado', $data['categoriachamado']);
+                    $statuschamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\StatusChamado')->findBy(array('status' => 'Aberto'));
 
 
-                    $size = new Size(array('max' => 5 * 1024 * 1024));
-                    $adapter = new \Zend\File\Transfer\Adapter\Http();
+                    $data['prioridade_fk'] = $priority;
+                    $data['categoriachamado'] = $categoriachamado;
+                    $data['setor_destino_fk'] = $setor;
 
-                    $dir = \dirname(__DIR__);
-                    $ex = \explode('intranet', $dir);
-                    $exten = \explode('.', $File['name']);
-                    $destino = $ex[0] . 'intranet\public\files\\' . md5(uniqid()) . '.' . $exten[1];
+                    $data['setor_origem_fk'] = $author['departamento'];
+                    $data['arquivo'] = '';
+                    $data['autor'] = $author['displayname'];
+                    $data['statuschamado_fk'] = $statuschamado[0];
+                    $chamado->setDatainicio();
 
-                    $rename = new Rename($destino);
+                    $File = $this->params()->fromFiles('arquivo');
 
-                    $extension = new Extension(array('gif', 'jpg', 'pdf', 'bmp', 'png'));
-                    $adapter->addFilter($rename);
-                    $adapter->addValidator($extension)
-                            ->addValidator($size);
+                    if ($File['size'] > 0) {
+                        $data['arquivo'] = $File['name'];
 
-                    if (!$adapter->isValid()) {
-                        $dataError = $adapter->getMessages();
-                        $error = array();
-                        foreach ($dataError as $key => $row) {
-                            $error[] = $row;
-                        }
-                        $form->setMessages(array('arquivo' => $error));
-                        return array('form' => $form);
-                    } else {
-                        $chamado->populate($data);
+
+                        $size = new Size(array('max' => 5 * 1024 * 1024));
+                        $adapter = new \Zend\File\Transfer\Adapter\Http();
+
                         $dir = \dirname(__DIR__);
-                        $ex = explode('intranet', $dir);
-                        $destino = $ex[0] . 'intranet\public\files';
-                        $adapter->setDestination($destino);
-                        if ($adapter->receive()) {
-                            $data['arquivo'] = str_replace('\\', '/', end(explode('public', $adapter->getFileName())));
+                        $ex = \explode('intranet', $dir);
+                        $exten = \explode('.', $File['name']);
+                        $destino = $ex[0] . 'intranet\public\files\\' . md5(uniqid()) . '.' . $exten[1];
+
+                        $rename = new Rename($destino);
+
+                        $extension = new Extension(array('gif', 'jpg', 'pdf', 'bmp', 'png'));
+                        $adapter->addFilter($rename);
+                        $adapter->addValidator($extension)
+                                ->addValidator($size);
+
+                        if (!$adapter->isValid()) {
+                            $dataError = $adapter->getMessages();
+                            $error = array();
+                            foreach ($dataError as $key => $row) {
+                                $error[] = $row;
+                            }
+                            $form->setMessages(array('arquivo' => $error));
+                            return array('form' => $form);
+                        } else {
                             $chamado->populate($data);
+                            $dir = \dirname(__DIR__);
+                            $ex = explode('intranet', $dir);
+                            $destino = $ex[0] . 'intranet\public\files';
+                            $adapter->setDestination($destino);
+                            if ($adapter->receive()) {
+                                $data['arquivo'] = str_replace('\\', '/', end(explode('public', $adapter->getFileName())));
+                                $chamado->populate($data);
+                            }
                         }
                     }
+                    $chamado->populate($data);
+                    $this->getEntityManager()->persist($chamado);
+                    $this->getEntityManager()->flush();
+
+                    $renderer = $this->getServiceLocator()->get('ViewRenderer');
+
+                    $content = $renderer->render('helpdesk/index/email-abertura-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+                    $mimehtml = new MimeType($content);
+
+                    $message = new Message();
+
+                    $message->addPart($mimehtml);
+
+                    $mail = new Mail($this->getServiceLocator());
+                    $mail->addFrom('webmaster@irmserv.com.br')
+                            ->addCc($author['email'])
+                            //->addTo($setor->getEmail())
+                            ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
+                            ->setBody($message);
+
+                    $mail->send();
+                    $headers = $mail->getHeaders();
+                    $headers->removeHeader('Content-Type');
+                    $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+                    $mail->setHeaders($headers);
+                    $this->flashMessenger()->addMessage('As informações foram registradas.');
+                    return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
+                } else {
+                    Debug::dump($form->getMessages());
                 }
-                $chamado->populate($data);
-                $this->getEntityManager()->persist($chamado);
-                $this->getEntityManager()->flush();
-
-                $renderer = $this->getServiceLocator()->get('ViewRenderer');
-
-                $content = $renderer->render('helpdesk/index/email-abertura-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
-                $mimehtml = new MimeType($content);
-
-                $message = new Message();
-
-                $message->addPart($mimehtml);
-
-                $mail = new Mail($this->getServiceLocator());
-                $mail->addFrom('webmaster@irmserv.com.br')
-                        ->addCc($author['email'])
-                        ->addTo($setor->getEmail())
-                        ->setSubject("[chamado Aberto - {$setor->getSetor()}] {$chamado->getTitulo()}")
-                        ->setBody($message);
-                $headers = $mail->getHeaders();
-                $headers->removeHeader('Content-Type');
-                $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
-                $mail->setHeaders($headers);
-
-                $mail->send();
-                $this->flashMessenger()->addMessage('As informações foram registradas.');
-                return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
-            } else {
-                Debug::dump($form->getMessages());
             }
+
+
+            return array('form' => $form);
         }
-
-
-        return array('form' => $form);
+        else
+        {
+            return new ViewModel(array('chamados_abertos'=>$chamados_abertos,'setor'=>$setor));
+        }
     }
 
     public function respostaAction() {
@@ -295,7 +305,8 @@ class IndexController extends AbstractActionController {
                 $renderer = $this->getServiceLocator()->get('ViewRenderer');
                 $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $resposta->getResposta()));
                 $mimehtml = new MimeType($content);
-
+                $mimehtml->type = Mime::TYPE_HTML;
+                $mimehtml->charset = 'UTF-8';
                 $message = new Message();
                 $message->addPart($mimehtml);
 
@@ -303,12 +314,8 @@ class IndexController extends AbstractActionController {
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addCc($store['email'])
                         ->addTo($setor->getEmail())
-                        ->setSubject("[Resposta Chamado - {$setor->getSetor()}] {$chamado->getTitulo()}")
+                        ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
                         ->setBody($message);
-                $headers = $mail->getHeaders();
-                $headers->removeHeader('Content-Type');
-                $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
-                $mail->setHeaders($headers);
 
                 $mail->send();
                 $this->redirect()->toRoute('ti/helpdesk/chamado');
@@ -366,7 +373,7 @@ class IndexController extends AbstractActionController {
             $renderer = $this->getServiceLocator()->get('ViewRenderer');
             $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo()));
             $mimehtml = new MimeType($content);
-
+            $mimehtml->type = Mime::TYPE_HTML;
 
             $message = new Message();
             $message->addPart($mimehtml);
@@ -375,12 +382,8 @@ class IndexController extends AbstractActionController {
             $mail->addFrom('webmaster@irmserv.com.br')
                     ->addCc($store['email'])
                     ->addTo($setor->getEmail())
-                    ->setSubject("[Chamado Fechado - {$setor->getSetor()}] {$chamado->getTitulo()}")
+                    ->setSubject("[Chamado fechado] {$chamado->getTitulo()}")
                     ->setBody($message);
-            $headers = $mail->getHeaders();
-            $headers->removeHeader('Content-Type');
-            $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
-            $mail->setHeaders($headers);
 
             $mail->send();
 

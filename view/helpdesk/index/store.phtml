@@ -1,9 +1,24 @@
 <?php
-$form = $this->form;
 
-$form->prepare();
+if (isset($this->form)) {
+    $form = $this->form;
 
-echo $this->form()->openTag($form);
-echo $this->formCollection($form);
-echo $this->form()->closeTag();
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formCollection($form);
+    echo $this->form()->closeTag();
+}
+if (isset($this->chamados_abertos)) {
+    ?>
+    <div class="alert alert-error">
+    <strong>Erro</strong>: Antes de prosseguir é necessário que responda a avaliação de cada chamado abaixo!
+    </div>
+<ul>
+    <?php
+ foreach($this->chamados_abertos as $chamado)
+ {?>
+   <li> <a href="http://intranet.local<?php echo $this->url('helpdesk/chamado/avaliar-chamado',array('setor'=>$this->setor,'chamado'=>$chamado->getIdchamado()))?>"><?php echo $chamado->getTitulo()?></a></li>
+ <?php }
+}
 ?>
