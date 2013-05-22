@@ -105,7 +105,7 @@ class IndexController extends AbstractActionController {
             $form = $anf->createForm($chamado);
 
             $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
-            $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findAll();
+          $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findBy(array('setor_fk'=>$setor->getIdsetor()));
 
             $prioridade = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findBy(array('prioridade' => 'Normal'));
             $chamado->setSetor_destino_fk($setor);
