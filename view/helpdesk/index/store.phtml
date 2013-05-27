@@ -18,7 +18,7 @@ if (isset($this->chamados_abertos)) {
     <?php
  foreach($this->chamados_abertos as $chamado)
  {?>
-   <li> <a href="http://intranet.local<?php echo $this->url('helpdesk/chamado/avaliar-chamado',array('setor'=>$this->setor,'chamado'=>$chamado->getIdchamado()))?>"><?php echo $chamado->getTitulo()?></a></li>
+   <li> <a href="http://irm.intranet<?php echo $this->url('helpdesk/chamado/avaliar-chamado',array('setor'=>$this->setor,'chamado'=>$chamado->getIdchamado()))?>"><?php echo $chamado->getTitulo()?></a></li>
  <?php }
 }
 ?>
