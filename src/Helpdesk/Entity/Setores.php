@@ -4,6 +4,7 @@ namespace Helpdesk\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Form\Annotation;
+use Doctrine\ORM\EntityManager;
 
 /**
  * @Annotation\Hydrator("Zend\Stdlib\Hydrator\ObjectProperty")
@@ -11,7 +12,7 @@ use Zend\Form\Annotation;
  * @ORM\Table(name="Setores")
  * */
 class Setores {
-
+private $em = null;
     /**
      * @Annotation\AllowEmpty(true)
      * @Annotation\Type("Zend\Form\Element\Hidden")
@@ -113,6 +114,25 @@ class Setores {
     public function setEmail($email) {
         $this->email = $email;
     }
+    
+    public function getAll()
+    {
+        return $this->getEm()->getRepository(get_class($this))->findAll();
+    }
+    
+    public function getById($id) {
+        return $this->getEm()->getRepository(get_class($this))->find($id);
+    }
+    
+    public function getEm() {
+        return $this->em;
+    }
+
+    public function setEm(EntityManager $em) {
+        $this->em = $em;
+    }
+
+
 
 
 }
