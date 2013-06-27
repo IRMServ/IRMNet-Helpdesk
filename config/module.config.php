@@ -3,6 +3,202 @@
 namespace Helpdesk;
 
 return array(
+    'acl' => array(
+        'Helpdesk' => array(
+            'RH' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'RH - GT' => array(
+             'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'RH - T&D' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'CONTROLADORIA' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'ALMOXARIFADO' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'COMPRAS' => array(
+              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'DIRETORIA' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'FABRICAÇÃO' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'FINANCEIRO - CONTÁBIL' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'FISCAL' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'LOGÍSTICA' => array(
+              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'OCTG - ADMINISTRATIVO' => array(
+              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'OCTG - INSPEÇÃO' => array(
+              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'OCTG - MACHINE SHOP' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'OCTG - VÁLVULAS' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'OPERACIONAL - OFFSHORE' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'PROJETOS ESPECIAIS' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'QUALIDADE' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'RELATÓRIO' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'SMS' => array(
+               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'TRANSPORTE' => array(
+              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'PLANEJAMENTO' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'JURIDICO' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+            'TI' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\CategoriaNoticia:chamado',
+                'Helpdesk\Controller\CategoriaNoticia:store',
+                'Helpdesk\Controller\CategoriaNoticia:resposta',
+                'Helpdesk\Controller\CategoriaNoticia:close',
+                'Helpdesk\Controller\CategoriaNoticia:avaliar',
+            ),
+        )
+    ),
     'controllers' => array(
         'invokables' => array(
             'Helpdesk\Controller\Index' => 'Helpdesk\Controller\IndexController',
@@ -145,11 +341,9 @@ return array(
                             'route' => '/store[/:id]',
                             'constraints' => array(
                                 'id' => '[0-9]+',
-                               
                             ),
                             'defaults' => array(
                                 'action' => 'store',
-                               
                             ),
                         ),
                     ),
@@ -346,14 +540,13 @@ return array(
                 'options' => array(
                     'route' => '/categoria-chamado/:setor',
                     'constraints' => array(
-                                'setor' => '[0-9]+'
-                            ),
+                        'setor' => '[0-9]+'
+                    ),
                     'defaults' => array(
                         'controller' => 'Helpdesk\Controller\categoriaChamado',
                         'action' => 'index',
                         'setor' => 0,
                     ),
-                            
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
