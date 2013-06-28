@@ -205,11 +205,12 @@ class IndexController extends AbstractActionController {
                             ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                             ->setBody($message);
 
-                    $mail->send();
+                   
                     $headers = $mail->getHeaders();
                     $headers->removeHeader('Content-Type');
                     $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
                     $mail->setHeaders($headers);
+                     $mail->send();
                     $this->flashMessenger()->addMessage('As informações foram registradas.');
                     return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
                 } else {
