@@ -201,7 +201,7 @@ class IndexController extends AbstractActionController {
                     $mail = new Mail($this->getServiceLocator());
                     $mail->addFrom('webmaster@irmserv.com.br')
                             ->addCc($author['email'])
-                            //->addTo($setor->getEmail())
+                            ->addTo($setor->getEmail())
                             ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                             ->setBody($message);
 
