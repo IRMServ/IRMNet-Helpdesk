@@ -312,13 +312,20 @@ class IndexController extends AbstractActionController {
                 $message->addPart($mimehtml);
 
                 $mail = new Mail($this->getServiceLocator());
-                $mail->addFrom('webmaster@irmserv.com.br')
-                        ->addCc($store['email'])
-                        ->addTo($setor->getEmail())
-                        ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
-                        ->setBody($message);
+                    $mail->addFrom('webmaster@irmserv.com.br')
+                          ->addCc($store['email'])
+                            ->addTo($setor->getEmail())
+                            ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
+                            ->setBody($message);
 
-                $mail->send();
+                   
+                    $headers = $mail->getHeaders();
+                    $headers->removeHeader('Content-Type');
+                    $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+                    $mail->setHeaders($headers);
+                     $mail->send();
+                
+               
                 $this->redirect()->toRoute('ti/helpdesk/chamado');
             }
         }
@@ -380,14 +387,19 @@ class IndexController extends AbstractActionController {
             $message->addPart($mimehtml);
 
             $mail = new Mail($this->getServiceLocator());
-            $mail->addFrom('webmaster@irmserv.com.br')
-                    ->addCc($store['email'])
-                    ->addTo($setor->getEmail())
-                    ->setSubject("[Chamado fechado] {$chamado->getTitulo()}")
-                    ->setBody($message);
+                    $mail->addFrom('webmaster@irmserv.com.br')
+                          ->addCc($store['email'])
+                            ->addTo($setor->getEmail())
+                             ->setSubject("[Chamado fechado] {$chamado->getTitulo()}")
+                            ->setBody($message);
 
-            $mail->send();
-
+                   
+                    $headers = $mail->getHeaders();
+                    $headers->removeHeader('Content-Type');
+                    $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
+                    $mail->setHeaders($headers);
+                     $mail->send();
+           
             return $this->redirect()->toRoute('helpdesk', array('setor' => $post['setor']));
         }
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
@@ -414,25 +426,4 @@ class IndexController extends AbstractActionController {
         }
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
     }
-
-    public function mailAction() {
-        $renderer = $this->getServiceLocator()->get('ViewRenderer');
-
-
-
-        $content = $renderer->render('helpdesk/index/email.phtml', array('url' => 'google.com.br', 'name' => 'teste'));
-        $mimehtml = new MimeType($content);
-        $mimehtml->type = Mime::TYPE_HTML;
-        $message = new Message();
-        $message->addPart($mimehtml);
-
-        $mail = new Mail($this->getServiceLocator());
-        $mail->addFrom('webmaster@irmserv.com.br')
-                ->addTo('igor.carvalho@irmserv.com.br')
-                ->setSubject('teste mail service')
-                ->setBody($message);
-
-        $mail->send();
-    }
-
 }
