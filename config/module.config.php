@@ -14,7 +14,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'RH - GT' => array(
-             'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -30,7 +30,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'CONTROLADORIA' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -46,7 +46,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'COMPRAS' => array(
-              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -62,7 +62,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'FABRICAÇÃO' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -70,7 +70,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'FINANCEIRO - CONTÁBIL' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -78,7 +78,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'FISCAL' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -86,7 +86,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'LOGÍSTICA' => array(
-              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -94,7 +94,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'OCTG - ADMINISTRATIVO' => array(
-              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -102,7 +102,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'OCTG - INSPEÇÃO' => array(
-              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -110,7 +110,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'OCTG - MACHINE SHOP' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -126,7 +126,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'OPERACIONAL - OFFSHORE' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -134,12 +134,14 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'PROJETOS ESPECIAIS' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
                 'Helpdesk\Controller\Index:close',
                 'Helpdesk\Controller\Index:avaliar',
+                'Helpdesk\Controller\CategoriaChamadoController:index',
+                'Helpdesk\Controller\CategoriaChamadoController:store',
             ),
             'QUALIDADE' => array(
                 'Helpdesk\Controller\Index:index',
@@ -150,7 +152,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'RELATÓRIO' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -158,7 +160,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'SMS' => array(
-               'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -166,7 +168,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
             ),
             'TRANSPORTE' => array(
-              'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
                 'Helpdesk\Controller\Index:store',
                 'Helpdesk\Controller\Index:resposta',
@@ -196,6 +198,8 @@ return array(
                 'Helpdesk\Controller\Index:resposta',
                 'Helpdesk\Controller\Index:close',
                 'Helpdesk\Controller\Index:avaliar',
+                'Helpdesk\Controller\CategoriaChamadoController:index',
+                'Helpdesk\Controller\CategoriaChamadoController:store',
             ),
         )
     ),
