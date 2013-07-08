@@ -140,8 +140,8 @@ return array(
                 'Helpdesk\Controller\Index:resposta',
                 'Helpdesk\Controller\Index:close',
                 'Helpdesk\Controller\Index:avaliar',
-                'Helpdesk\Controller\CategoriaChamadoController:index',
-                'Helpdesk\Controller\CategoriaChamadoController:store',
+                'Helpdesk\Controller\CategoriaChamado:index',
+                'Helpdesk\Controller\CategoriaChamado:store',
             ),
             'QUALIDADE' => array(
                 'Helpdesk\Controller\Index:index',
@@ -198,8 +198,8 @@ return array(
                 'Helpdesk\Controller\Index:resposta',
                 'Helpdesk\Controller\Index:close',
                 'Helpdesk\Controller\Index:avaliar',
-                'Helpdesk\Controller\CategoriaChamadoController:index',
-                'Helpdesk\Controller\CategoriaChamadoController:store',
+                'Helpdesk\Controller\CategoriaChamado:index',
+                'Helpdesk\Controller\CategoriaChamado:store',
             ),
         )
     ),
