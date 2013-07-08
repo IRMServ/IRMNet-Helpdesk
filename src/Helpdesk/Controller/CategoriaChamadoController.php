@@ -9,6 +9,7 @@ use Zend\View\Model\ViewModel;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\Debug\Debug;
+
 class CategoriaChamadoController extends AbstractActionController {
 
     protected $em;
@@ -48,7 +49,7 @@ class CategoriaChamadoController extends AbstractActionController {
         $setor = $this->params()->fromRoute('setor');
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
         $setoreent = $entityManager->getRepository('Helpdesk\Entity\Setores')->find($setor);
-  
+
         $id = $this->params()->fromRoute('id');
         $anf = new AnnotationBuilder($this->getEntityManager());
         $form = $anf->createForm($setores);
@@ -84,7 +85,7 @@ class CategoriaChamadoController extends AbstractActionController {
                     $this->getEntityManager()->flush();
                 }
                 $this->flashMessenger()->addMessage('The Data are registred.');
-                $this->redirect()->toRoute('categoria-chamado',array('setor'=>$setor));
+                $this->redirect()->toRoute('categoria-chamado', array('setor' => $setor));
             }
         }
 
@@ -94,6 +95,8 @@ class CategoriaChamadoController extends AbstractActionController {
 
     public function deleteAction() {
         $setores = new CategoriaChamado();
+        $setor = $this->params()->fromRoute('setor');
+        $setoreent = $this->getEntityManager()->getRepository('Helpdesk\Entity\Setores')->find($setor);
         $id = $this->params()->fromRoute('id');
         $anf = new AnnotationBuilder($this->getEntityManager());
         $form = $anf->createForm($setores);
@@ -115,7 +118,7 @@ class CategoriaChamadoController extends AbstractActionController {
                 $this->getEntityManager()->flush();
             }
             $this->flashMessenger()->addMessage('The Data are removed.');
-            return $this->redirect()->toRoute('categoria-chamado');
+             $this->redirect()->toRoute('categoria-chamado', array('setor' => $setor));
         }
 
 
