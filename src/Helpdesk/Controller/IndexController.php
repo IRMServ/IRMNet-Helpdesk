@@ -96,16 +96,20 @@ class IndexController extends AbstractActionController {
         $this->layout()->user = $this->getServiceLocator()->get('Auth')->hasIdentity();
         $user = $this->getServiceLocator()->get('Auth')->getStorage()->read();
         $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('autor' => $user['displayname'], 'nota' => 0));
-        
+
+
+
         $setor = $this->params()->fromRoute('setor');
+        $anf = new AnnotationBuilder($this->getEntityManager());
+        $chamado = new Chamado();
+        $setor = $this->params()->fromRoute('setor');
+        $form = $anf->createForm($chamado);
+        //print_r(get_class($form->get('categoriachamado')));
         if (count($chamados_abertos) == 0) {
-            $anf = new AnnotationBuilder($this->getEntityManager());
-            $chamado = new Chamado();
-            $setor = $this->params()->fromRoute('setor');
-            $form = $anf->createForm($chamado);
+
 
             $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
-          $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findBy(array('setor_fk'=>$setor->getIdsetor()));
+            $categoriachamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\CategoriaChamado')->findBy(array('setor_fk' => $setor->getIdsetor()));
 
             $prioridade = $this->getEntityManager()->getRepository('Helpdesk\Entity\PrioridadeChamado')->findBy(array('prioridade' => 'Normal'));
             $chamado->setSetor_destino_fk($setor);
@@ -200,8 +204,9 @@ class IndexController extends AbstractActionController {
 
                     $mail = new Mail($this->getServiceLocator());
                     $mail->addFrom('webmaster@irmserv.com.br')
-                            ->addCc($author['email'])
-                            ->addTo($setor->getEmail())
+                            ->addTo($author['email'])
+                            //->addCc($setor->getEmail())
+                            //->addTo($setor->getEmail())
                             ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                             ->setBody($message);
 
@@ -220,10 +225,8 @@ class IndexController extends AbstractActionController {
 
 
             return array('form' => $form);
-        }
-        else
-        {
-            return new ViewModel(array('chamados_abertos'=>$chamados_abertos,'setor'=>$setor));
+        } else {
+            return new ViewModel(array('chamados_abertos' => $chamados_abertos, 'setor' => $setor));
         }
     }
 
@@ -304,17 +307,19 @@ class IndexController extends AbstractActionController {
                 $this->getEntityManager()->persist($resposta);
                 $this->getEntityManager()->flush();
                 $renderer = $this->getServiceLocator()->get('ViewRenderer');
-                $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $resposta->getResposta()));
-                $mimehtml = new MimeType($content);
-                $mimehtml->type = Mime::TYPE_HTML;
-                $mimehtml->charset = 'UTF-8';
-                $message = new Message();
-                $message->addPart($mimehtml);
 
-                $mail = new Mail($this->getServiceLocator());
+                    $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+                    $mimehtml = new MimeType($content);
+
+                    $message = new Message();
+
+                    $message->addPart($mimehtml);
+
+                    $mail = new Mail($this->getServiceLocator());
                     $mail->addFrom('webmaster@irmserv.com.br')
-                          ->addCc($store['email'])
-                            ->addTo($setor->getEmail())
+                            ->addTo($store['email'])
+                            //->addCc($setor->getEmail())
+                            //->addTo($setor->getEmail())
                             ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
                             ->setBody($message);
 
@@ -324,8 +329,6 @@ class IndexController extends AbstractActionController {
                     $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
                     $mail->setHeaders($headers);
                      $mail->send();
-                
-               
                 $this->redirect()->toRoute('ti/helpdesk/chamado');
             }
         }
@@ -378,19 +381,21 @@ class IndexController extends AbstractActionController {
             $chamado->setNota(0);
             $this->getEntityManager()->merge($chamado);
             $this->getEntityManager()->flush();
-            $renderer = $this->getServiceLocator()->get('ViewRenderer');
-            $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo()));
-            $mimehtml = new MimeType($content);
-            $mimehtml->type = Mime::TYPE_HTML;
+          $renderer = $this->getServiceLocator()->get('ViewRenderer');
 
-            $message = new Message();
-            $message->addPart($mimehtml);
+                    $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+                    $mimehtml = new MimeType($content);
 
-            $mail = new Mail($this->getServiceLocator());
+                    $message = new Message();
+
+                    $message->addPart($mimehtml);
+
+                    $mail = new Mail($this->getServiceLocator());
                     $mail->addFrom('webmaster@irmserv.com.br')
-                          ->addCc($store['email'])
-                            ->addTo($setor->getEmail())
-                             ->setSubject("[Chamado fechado] {$chamado->getTitulo()}")
+                            ->addTo($store['email'])
+                            //->addCc($setor->getEmail())
+                            //->addTo($setor->getEmail())
+                            ->setSubject("[fechamento chamado] {$chamado->getTitulo()}")
                             ->setBody($message);
 
                    
@@ -399,7 +404,7 @@ class IndexController extends AbstractActionController {
                     $headers->addHeaderLine('Content-Type', 'text/html; charset=UTF-8');
                     $mail->setHeaders($headers);
                      $mail->send();
-           
+
             return $this->redirect()->toRoute('helpdesk', array('setor' => $post['setor']));
         }
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
@@ -426,4 +431,5 @@ class IndexController extends AbstractActionController {
         }
         return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
     }
+
 }
