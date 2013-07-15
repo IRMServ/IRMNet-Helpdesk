@@ -205,7 +205,7 @@ class IndexController extends AbstractActionController {
                     $mail = new Mail($this->getServiceLocator());
                     $mail->addFrom('webmaster@irmserv.com.br')
                             ->addTo($author['email'])
-                            //->addCc($setor->getEmail())
+                            ->addCc($setor->getEmail())
                             //->addTo($setor->getEmail())
                             ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                             ->setBody($message);
@@ -318,7 +318,7 @@ class IndexController extends AbstractActionController {
                 $mail = new Mail($this->getServiceLocator());
                 $mail->addFrom('webmaster@irmserv.com.br')
                         ->addTo($store['email'])
-                        //->addCc($setor->getEmail())
+                        ->addCc($setor->getEmail())
                         //->addTo($setor->getEmail())
                         ->setSubject("[resposta chamado] {$chamado->getTitulo()}")
                         ->setBody($message);
@@ -393,7 +393,7 @@ class IndexController extends AbstractActionController {
             $mail = new Mail($this->getServiceLocator());
             $mail->addFrom('webmaster@irmserv.com.br')
                     ->addTo($store['email'])
-                    //->addCc($setor->getEmail())
+                    ->addCc($setor->getEmail())
                     //->addTo($setor->getEmail())
                     ->setSubject("[fechamento chamado] {$chamado->getTitulo()}")
                     ->setBody($message);
