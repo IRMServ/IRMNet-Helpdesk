@@ -189,7 +189,7 @@ Email on Acid - http://www.emailonacid.com/blog/details/C18/doctype_-_the_black_
 <body>
 	<h1>Fechamento de chamado</h1>
         <?php echo $this->sujeito?>,<br/>
-        <p>O seu chamado ("<?php echo $this->titulo?>") foi fechado, mas gostaríamos de sua opinião. Por favor acesse o link abaixo e dê sua nota.<br/><br/>
+        <p>O seu chamado ("<?php echo $this->titulo?>") foi fechado, mas para que possamos medir o grau de satisfa&ccedil;&atilde;o de nossos atendimentos, clique no link abaixo e avalie.<br/><br/>
         </p>
         
         <a href="http://irm.intranet<?php echo $this->url('helpdesk/chamado/avaliar-chamado',array('setor'=>$this->setor,'chamado'=>$this->chamado))?>"><?php echo $this->titulo?></a><br/><br/></p>
