@@ -308,7 +308,7 @@ class IndexController extends AbstractActionController {
                 $this->getEntityManager()->flush();
                 $renderer = $this->getServiceLocator()->get('ViewRenderer');
 
-                $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+                $content = $renderer->render('helpdesk/index/email-resposta-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $resposta->getResposta()));
                 $mimehtml = new MimeType($content);
 
                 $message = new Message();
@@ -383,7 +383,7 @@ class IndexController extends AbstractActionController {
             $this->getEntityManager()->flush();
             $renderer = $this->getServiceLocator()->get('ViewRenderer');
 
-            $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml', array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
+            $content = $renderer->render('helpdesk/index/email-fechar-chamado.phtml',array('setor' => $setor->getIdsetor(), 'sujeito' => $store['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo()));
             $mimehtml = new MimeType($content);
 
             $message = new Message();
