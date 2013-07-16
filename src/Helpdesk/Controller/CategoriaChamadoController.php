@@ -67,7 +67,7 @@ class CategoriaChamadoController extends AbstractActionController {
         if ($this->getRequest()->isPost()) {
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
-                $data = $form->getData();
+                $data = (array)$form->getData();
 
 
                 if (!$data['idcategoriachamado']) {
