@@ -29,7 +29,7 @@
     <tfoot>
         <tr>
             <td colspan="3"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/categoria-chamado/pager.phtml') : ""; ?></td>
-            <td>  <a class="btn btn-primary" href="<?php echo $this->url('categoria-chamado/store', array()); ?>"><i class="icon-plus icon-white"></i> Create</a></td>
+            <td>  <a class="btn btn-primary" href="<?php echo $this->url('categoria-chamado/store', array('setor'=>$this->setor)); ?>"><i class="icon-plus icon-white"></i> Create</a></td>
         </tr>
     </tfoot>
 </tbody>
