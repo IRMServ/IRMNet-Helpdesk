@@ -29,6 +29,14 @@ return array(
                 'Helpdesk\Controller\Index:close',
                 'Helpdesk\Controller\Index:avaliar',
             ),
+            'RH - ADP' => array(
+                'Helpdesk\Controller\Index:index',
+                'Helpdesk\Controller\Index:chamado',
+                'Helpdesk\Controller\Index:store',
+                'Helpdesk\Controller\Index:resposta',
+                'Helpdesk\Controller\Index:close',
+                'Helpdesk\Controller\Index:avaliar',
+            ),
             'CONTROLADORIA' => array(
                 'Helpdesk\Controller\Index:index',
                 'Helpdesk\Controller\Index:chamado',
