@@ -22,8 +22,8 @@
                 <td><?php echo $setor->descricao; ?></td>
                 <td><?php echo $setor->getSetor_fk()->getSetor(); ?></td>
 
-                <td> <a class="btn" href="<?php echo $this->url('categoria-chamado/store', array('id'=>$setor->idcategoriachamado)); ?>"><i class="icon-pencil"></i> Edit</a>
-                 <a class="btn btn-danger" href="<?php echo $this->url('categoria-chamado/delete', array('id'=>$setor->idcategoriachamado)); ?>"><i class="icon-trash icon-white"></i> Delete</a></td>
+                <td> <a class="btn" href="<?php echo $this->url('categoria-chamado/store', array('id'=>$setor->idcategoriachamado,'setor'=>$this->setor)); ?>"><i class="icon-pencil"></i> Edit</a>
+                 <a class="btn btn-danger" href="<?php echo $this->url('categoria-chamado/delete', array('id'=>$setor->idcategoriachamado,'setor'=>$this->setor)); ?>"><i class="icon-trash icon-white"></i> Delete</a></td>
             </tr>
         <?php endforeach; ?>
     <tfoot>
