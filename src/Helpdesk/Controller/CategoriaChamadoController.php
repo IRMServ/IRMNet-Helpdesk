@@ -122,7 +122,7 @@ class CategoriaChamadoController extends AbstractActionController {
         }
 
 
-        return array('form' => $form, 'setor' => $setorid);
+        return array('form' => $form, 'setor' => $setor,'setorid'=>$setorid);
     }
 
 }
