@@ -95,8 +95,8 @@ class CategoriaChamadoController extends AbstractActionController {
 
     public function deleteAction() {
         $setores = new CategoriaChamado();
-        $setor = $this->params()->fromRoute('setor');
-        $setoreent = $this->getEntityManager()->getRepository('Helpdesk\Entity\Setores')->find($setor);
+        $setorid = $this->params()->fromRoute('setor');
+        $setoreent = $this->getEntityManager()->getRepository('Helpdesk\Entity\Setores')->find($setorid);
         $id = $this->params()->fromRoute('id');
         $anf = new AnnotationBuilder($this->getEntityManager());
         $form = $anf->createForm($setores);
@@ -118,7 +118,7 @@ class CategoriaChamadoController extends AbstractActionController {
                 $this->getEntityManager()->flush();
             }
             $this->flashMessenger()->addMessage('The Data are removed.');
-             $this->redirect()->toRoute('categoria-chamado', array('setor' => $setor));
+             $this->redirect()->toRoute('categoria-chamado', array('setor' => $setorid));
         }
 
 
