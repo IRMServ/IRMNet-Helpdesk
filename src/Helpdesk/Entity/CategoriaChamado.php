@@ -42,7 +42,7 @@ class CategoriaChamado
     public $descricao;
     
     /**
-     *@Annotation\Type("Zend\Form\Element\Hidden")
+     *@Annotation\Type("Zend\Form\Element\Select")
      * @ORM\ManyToOne(targetEntity="Helpdesk\Entity\Setores", inversedBy="idsetor")
      * @ORM\JoinColumn(name="setor_fk", referencedColumnName="idsetor")
      */

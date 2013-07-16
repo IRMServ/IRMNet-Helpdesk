@@ -46,14 +46,14 @@ class CategoriaChamadoController extends AbstractActionController {
 
     public function storeAction() {
         $setores = new CategoriaChamado();
-        $setor = $this->params()->fromRoute('setor');
+        $setorid = $this->params()->fromRoute('setor');
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $setoreent = $entityManager->getRepository('Helpdesk\Entity\Setores')->find($setor);
+        $setoreent = $entityManager->getRepository('Helpdesk\Entity\Setores')->find($setorid);
 
         $id = $this->params()->fromRoute('id');
         $anf = new AnnotationBuilder($this->getEntityManager());
         $form = $anf->createForm($setores);
-        $form->get('setor_fk')->setValue($setoreent->getIdsetor());
+        $form->get('setor_fk')->setEmptyOpTion('Escolha o setor')->setValueOptions($this->getServiceLocator()->get('SetoresPair'))->setValue($setoreent->getIdsetor());
 
 
 
@@ -85,7 +85,7 @@ class CategoriaChamadoController extends AbstractActionController {
                     $this->getEntityManager()->flush();
                 }
                 $this->flashMessenger()->addMessage('The Data are registred.');
-                $this->redirect()->toRoute('categoria-chamado', array('setor' => $setor));
+                $this->redirect()->toRoute('categoria-chamado', array('setor' => $setorid));
             }
         }
 
