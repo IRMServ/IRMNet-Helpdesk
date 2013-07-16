@@ -200,6 +200,7 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
                 'Helpdesk\Controller\categoriaChamado:index',
                 'Helpdesk\Controller\categoriaChamado:store',
+                'Helpdesk\Controller\categoriaChamado:delete',
             ),
         )
     ),
