@@ -1,3 +1,39 @@
+<script src="/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table a").tooltip();
+        $("#tabela").dataTable();
+    });
+</script>
+<style>
+    .dataTables_filter,.dataTables_length{
+        width:40%;
+        float:left;
+    }
+    #tabela_info{
+        width:45%;
+        float:left;
+    }
+    #tabela
+    {
+        width:100%;
+        float:left;
+    }
+    #tabela th
+    {
+        cursor: pointer;
+    }
+
+    #tabela_paginate{
+        float:left;
+        width:40%;
+    }
+    #tabela_paginate a{
+        float:left;
+        width:20%;
+        cursor: pointer;
+    }
+</style>
 <?php if ($this->messages): ?>
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>       
@@ -33,3 +69,4 @@
 </tbody>
 
 </table>
+<hr/>

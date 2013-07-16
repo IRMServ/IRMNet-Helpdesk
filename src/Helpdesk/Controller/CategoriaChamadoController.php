@@ -36,7 +36,7 @@ class CategoriaChamadoController extends AbstractActionController {
         if ($page)
             $paginator->setCurrentPageNumber($page);
 
-        $view->setVariable('paginator', $paginator);
+        $view->setVariable('paginator', $all);
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
         $view->setVariable('setor', $setor);

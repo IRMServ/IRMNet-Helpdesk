@@ -49,7 +49,7 @@ class IndexController extends AbstractActionController {
         if ($page)
             $paginator->setCurrentPageNumber($page);
 
-        $view->setVariable('paginator', $paginator);
+        $view->setVariable('paginator', $chamado);
         $view->setVariable('messages', $messages);
         $view->setVariable('page', $page);
         $view->setVariable('setor', $setor);

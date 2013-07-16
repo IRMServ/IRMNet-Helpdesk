@@ -1,3 +1,39 @@
+<script src="/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("table a").tooltip();
+        $("#tabela").dataTable();
+    });
+</script>
+<style>
+    .dataTables_filter,.dataTables_length{
+        width:40%;
+        float:left;
+    }
+    #tabela_info{
+        width:45%;
+        float:left;
+    }
+    #tabela
+    {
+        width:100%;
+        float:left;
+    }
+    #tabela th
+    {
+        cursor: pointer;
+    }
+
+    #tabela_paginate{
+        float:left;
+        width:40%;
+    }
+    #tabela_paginate a{
+        float:left;
+        width:20%;
+        cursor: pointer;
+    }
+</style>
 <?php if ($this->messages): ?>
     <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert">&times;</button>       
@@ -6,7 +42,7 @@
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
-<table class="table table-striped table-bordered table-hover">
+<table id="tabela" class="table table-striped table-bordered table-hover">
     <thead>         
         <tr>
             <th>Status de chamado</th>
@@ -28,9 +64,10 @@
         <?php endforeach; ?>
     <tfoot>
         <tr>
-            <td colspan="3"><?php echo( count($this->paginator) > 0 ) ? $this->paginationControl($this->paginator, 'Sliding', 'helpdesk/categoria-chamado/pager.phtml') : ""; ?></td>
-            <td>  <a class="btn btn-primary" href="<?php echo $this->url('categoria-chamado/store', array('setor' => $this->setor)); ?>"><i class="icon-plus icon-white"></i> Create</a></td>
+            
+            <td colspan="4">  <a class="btn btn-primary" href="<?php echo $this->url('categoria-chamado/store', array('setor' => $this->setor)); ?>"><i class="icon-plus icon-white"></i> Create</a></td>
         </tr>
     </tfoot>
 </tbody>
 </table>
+<hr/>
