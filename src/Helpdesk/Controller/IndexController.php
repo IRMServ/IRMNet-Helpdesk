@@ -197,16 +197,14 @@ class IndexController extends AbstractActionController {
                     $mail->addFrom('webmaster@irmserv.com.br')
                             ->addTo($author['email'])
                             ->addCc($setor->getEmail())
-                            //->addTo($setor->getEmail())
+                            
                             ->setSubject("[chamado aberto] {$chamado->getTitulo()}")
                             ->setBody(array('setor' => $setor->getIdsetor(), 'sujeito' => $author['displayname'], 'chamado' => $chamado->getIdchamado(), 'titulo' => $chamado->getTitulo(), 'conteudo' => $chamado->getDescricao()));
 
                     $mail->send();
                     $this->flashMessenger()->addMessage('As informações foram registradas.');
                     return $this->redirect()->toRoute('helpdesk', array('setor' => $setor->getIdsetor()));
-                } else {
-                    Debug::dump($form->getMessages());
-                }
+                } 
             }
 
 
