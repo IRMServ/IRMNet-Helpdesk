@@ -93,8 +93,8 @@ class IndexController extends AbstractActionController {
     public function storeAction() {
         $this->layout()->user = $this->getServiceLocator()->get('Auth')->hasIdentity();
         $user = $this->getServiceLocator()->get('Auth')->getStorage()->read();
-        $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('autor' => $user['displayname'], 'nota' => 0));
-
+          $s = $this->getEntityManager()->getRepository('Helpdesk\Entity\StatusChamado')->findBy(array('status' => 'Fechado'));
+        $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('autor' => $user['displayname'],'statuschamado_fk'=>$s, 'nota' => 0));
 
 
         $setor = $this->params()->fromRoute('setor');
@@ -191,8 +191,7 @@ class IndexController extends AbstractActionController {
                     $this->getEntityManager()->persist($chamado);
                     $this->getEntityManager()->flush();
 
-                    $renderer = $this->getServiceLocator()->get('ViewRenderer');
-
+                    
                     $mail = new MailService($this->getServiceLocator(),ServiceTemplate::HELPDESK_ABERTURA);
                     $mail->addFrom('webmaster@irmserv.com.br')
                             ->addTo($author['email'])
