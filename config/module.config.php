@@ -150,6 +150,9 @@ return array(
                 'Helpdesk\Controller\Index:avaliar',
                 'Helpdesk\Controller\categoriaChamado:index',
                 'Helpdesk\Controller\categoriaChamado:store',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:index',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:store',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:delete',
             ),
             'QUALIDADE' => array(
                 'Helpdesk\Controller\Index:index',
@@ -209,6 +212,9 @@ return array(
                 'Helpdesk\Controller\categoriaChamado:index',
                 'Helpdesk\Controller\categoriaChamado:store',
                 'Helpdesk\Controller\categoriaChamado:delete',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:index',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:store',
+                'Helpdesk\Controller\ItemAvaliacaoChamado:delete',
             ),
         )
     ),
@@ -219,6 +225,7 @@ return array(
             'Helpdesk\Controller\Setor' => 'Helpdesk\Controller\SetorController',
             'Helpdesk\Controller\CategoriaChamado' => 'Helpdesk\Controller\CategoriaChamadoController',
             'Helpdesk\Controller\PrioridadeChamado' => 'Helpdesk\Controller\PrioridadeChamadoController',
+            'Helpdesk\Controller\ItemAvaliacaoChamado' => 'Helpdesk\Controller\ItemAvaliacaoChamadoController',
         ),
     ),
     'translator' => array(
@@ -374,6 +381,63 @@ return array(
                         ),
                     ),
                     'setor-page' => array(
+                        'type' => 'Segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/page[/:page]',
+                            'constraints' => array(
+                                'page' => '[0-9]+'
+                            ),
+                            'defaults' => array(
+                                'action' => 'index',
+                                'page' => 1
+                            ),
+                        ),
+                    ),
+                )
+            ),
+            'item-avaliacao-chamado' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/item-avaliacao-chamado/:setor',
+                    'constraints' => array(
+                        'setor' => '[0-9]+'
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Helpdesk\Controller\ItemAvaliacaoChamado',
+                        'action' => 'index',
+                        'setor' => 0,
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'store' => array(
+                        'type' => 'Segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/store[/:id]',
+                            'constraints' => array(
+                                'id' => '[0-9]+',
+                            ),
+                            'defaults' => array(
+                                'action' => 'store',
+                            ),
+                        ),
+                    ),
+                    'delete' => array(
+                        'type' => 'Segment',
+                        'may_terminate' => true,
+                        'options' => array(
+                            'route' => '/delete[/:id]',
+                            'constraints' => array(
+                                'id' => '[0-9]+'
+                            ),
+                            'defaults' => array(
+                                'action' => 'delete',
+                            ),
+                        ),
+                    ),
+                    'categoria-chamado-page' => array(
                         'type' => 'Segment',
                         'may_terminate' => true,
                         'options' => array(
@@ -664,7 +728,7 @@ return array(
             },
         )
     ),
-                     'asset_manager' => array(
+    'asset_manager' => array(
         'resolver_configs' => array(
             'paths' => array(
                 __DIR__ . '/../public',

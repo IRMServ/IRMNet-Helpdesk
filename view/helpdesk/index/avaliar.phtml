@@ -1,10 +1,15 @@
 <p>Como você se sente com o atendimento feito?</p>
+
+
 <form method="post">
-    <input type="radio" name="nota" value="10" /><img title="Feliz" src="/img/Smiley-icon.png" /><br/>
-    <input type="radio" name="nota" value="5" /><img title="Indiferente" src="/img/Smiley-disappointed-icon.png" /><br/>
-     <input type="radio" name="nota" value="1" /><img title="Desapontado" src="/img/Smiley-upset-3-icon.png" /><br/>
-    
-    
+    <?php foreach($this->items as $item):?>
+   <?php echo $item->getItemavaliacaonome();?>:
+    <input type="radio" name="nota_<?php echo $item->getIditemavaliacaochamado()?>" value="10" /><img title="Feliz" src="/img/Smiley-icon.png" />
+    <input type="radio" name="nota_<?php echo $item->getIditemavaliacaochamado()?>" value="5" /><img title="Indiferente" src="/img/Smiley-disappointed-icon.png" />
+     <input type="radio" name="nota_<?php echo $item->getIditemavaliacaochamado()?>" value="1" /><img title="Desapontado" src="/img/Smiley-upset-3-icon.png" />
+    <br/>
+    <br/>
+    <?php endforeach;?>
    
     <p>Caso esteja desapontado, por favor escreva o motivo:</p><br/>
     <textarea name="motivo">

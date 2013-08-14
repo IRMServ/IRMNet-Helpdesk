@@ -375,25 +375,48 @@ class IndexController extends AbstractActionController {
     }
 
     public function avaliarAction() {
-        $id = $this->params()->fromRoute('chamado');
+         $id = $this->params()->fromRoute('chamado');
         $chamado = $this->getEntityManager()->find('Helpdesk\Entity\Chamado', $id);
         $setor = $this->params()->fromRoute("setor");
         $setor = $this->getEntityManager()->find('Helpdesk\Entity\Setores', $setor);
+        $itens = $this->getEntityManager()->getRepository('Helpdesk\Entity\ItemAvaliacaoChamado')->findBy(array('setor_fk' => $setor));
         $store = $this->getServiceLocator()->get('Auth')->getStorage()->read();
         if ($this->getRequest()->isPost()) {
             $post = $this->getRequest()->getPost();
+           
+           
+            $chamado = $this->getEntityManager()->find('Helpdesk\Entity\Chamado', $post['chamado']);
+            foreach ($post as $key => $value) {
+               
+                if (strpos($key,'nota' )!== false) {
+                    $chamado = $this->getEntityManager()->find('Helpdesk\Entity\Chamado', $post['chamado']);
+                    $itemavaliacaoid = explode('_', $key);
+                    $itemavaliacao = $this->getEntityManager()->find('Helpdesk\Entity\ItemAvaliacaoChamado', end($itemavaliacaoid));
+                    $avaliacaochamado = new AvaliacaoChamado();
+                    $avaliacaochamado->setEntityManager($this->getEntityManager());
+                    $avaliacaochamado->setChamado($chamado);
+                    $avaliacaochamado->setItemavaliacao($itemavaliacao);
+                    $avaliacaochamado->setNota($value);
+                    $avaliacaochamado->setData(new \DateTime('now'));
+                    $avaliacaochamado->setNome($store['displayname']);
+                   
+                    $avaliacaochamado->store();
+                }
+            }
+
+
             $statuschamado = $this->getEntityManager()->getRepository('Helpdesk\Entity\StatusChamado')->findBy(array('status' => 'Fechado'));
-            $chamado->setDatafim();
+
             $chamado->setStatuschamado_fk($statuschamado[0]);
             $chamado->setMotivo($post['motivo']);
-            $chamado->setNota($post['nota']);
+
             $this->getEntityManager()->merge($chamado);
             $this->getEntityManager()->flush();
 
 
             return $this->redirect()->toRoute('helpdesk', array('setor' => $post['setor']));
         }
-        return new ViewModel(array('chamado' => $chamado, 'setor' => $setor));
+        return new ViewModel(array('chamado' => $chamado, 'setor' => $setor, 'items' => $itens));
     }
 
 }
