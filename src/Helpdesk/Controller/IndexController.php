@@ -7,6 +7,7 @@ use Helpdesk\Entity\Chamado;
 use Helpdesk\Entity\RespostaChamado;
 use Helpdesk\Entity\PrioridadeChamado;
 use Zend\Form\Annotation\AnnotationBuilder;
+use Helpdesk\Entity\AvaliacaoChamado;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\Validator\File\Size;
