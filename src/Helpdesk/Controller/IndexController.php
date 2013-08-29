@@ -95,7 +95,7 @@ class IndexController extends AbstractActionController {
         $this->layout()->user = $this->getServiceLocator()->get('Auth')->hasIdentity();
         $user = $this->getServiceLocator()->get('Auth')->getStorage()->read();
           $s = $this->getEntityManager()->getRepository('Helpdesk\Entity\StatusChamado')->findBy(array('status' => 'Fechado'));
-        $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\Chamado')->findBy(array('autor' => $user['displayname'],'statuschamado_fk'=>$s, 'nota' => 0));
+        $chamados_abertos = $this->getEntityManager()->getRepository('Helpdesk\Entity\AvaliacaoChamado')->findBy(array('nome' => $user['displayname'], 'nota' => 0));
 
 
         $setor = $this->params()->fromRoute('setor');
