@@ -95,7 +95,7 @@ class ItemAvaliacaoChamadoController extends AbstractActionController {
     }
 
     public function deleteAction() {
-        $setores = new CategoriaChamado();
+        $setores = new ItemAvaliacaoChamado();
         $setorid = $this->params()->fromRoute('setor');
        
         $id = $this->params()->fromRoute('id');
