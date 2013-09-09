@@ -1,16 +1,16 @@
 <p>Are you sure that you want to delete
     
-    '<?php echo $this->escapeHtml($setor->categorianome); ?>'?
+    '<?php echo $this->escapeHtml($setor->itemavaliacaonome); ?>'?
 </p>
 <?php
-$url = $this->url('categoria-chamado/delete', array(
+$url = $this->url('item-avaliacao-chamado/delete', array(
     
     'id'     => $this->id,'setor'=>$this->setorid
 ));
 ?>
 <form action="<?php echo $url; ?>" method="post">
 <div>
-    <input type="hidden" name="id" value="<?php echo (int) $setor->idcategoriachamado; ?>" />
+    <input type="hidden" name="id" value="<?php echo (int) $setor->iditemavaliacaochamado; ?>" />
     <input type="submit" name="del" class="btn btn-danger" value="Yes" />
     <input type="submit" name="del" class="btn" value="No" />
 </div>
