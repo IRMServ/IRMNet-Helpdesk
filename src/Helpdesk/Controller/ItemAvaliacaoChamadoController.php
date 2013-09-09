@@ -26,7 +26,7 @@ class ItemAvaliacaoChamadoController extends AbstractActionController {
         $view = new ViewModel();
         $setor = $this->params()->fromRoute('setor');
         $entityManager = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        $all = $entityManager->getRepository('Helpdesk\Entity\ItemAvaliacaoChamado')->findBy(array('setor_fk' => $setor));
+        $all = $entityManager->getRepository('Helpdesk\Entity\ItemAvaliacaoChamado')->findBy(array('setor_fk' => $setor),array('iditemavaliacaochamado' => 'asc'));
 
         $paginator = new Paginator(new ArrayAdapter($all));
         $paginator->setDefaultItemCountPerPage(4);
